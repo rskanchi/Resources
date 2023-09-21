@@ -1,0 +1,35 @@
+---
+title: "Machine Learning using R"
+author: "Rupa S Kanchi"
+date: " `r format(Sys.time(), '%d %B %Y')`"
+output: html_document
+
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# Machine Learning
+
+## Workflow
+  1. Data pre-processing
+  2. 
+
+# Three partitions of the original data
+  1. Training - for model building: understand rules of explanatory variables to predict outcome
+  2. Validation - to compare the models 
+  3. Testing - for making predictions
+
+
+Machine learning packages frquently used: caret, e1071, net, kernlab, randomforest
+# Initial data analysis: anova, correlations, etc
+# trait data should have the rownames in the first column; samples in rows and traits in cols
+# Four types of traits can be in the trait data file
+# binaryOutcome - differential expression analysis 
+# ordinalOutcome - regression analysis
+# continuousOutcome - regression
+# categoricalOutcome # nominal variable - anova
+
+#binaryOutcome = NULL, ordinalOutcome = NULL, continuousOutcome = NULL, categoricalOutcome = NULL,
+
