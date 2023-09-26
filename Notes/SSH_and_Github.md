@@ -1,10 +1,11 @@
 
 # Connect R and Github
 
-1. Create a [GitHub](https://github.com/) account: You must know your username, password and the email address used to create the GitHub account.
+### 1. Create a [GitHub](https://github.com/) account: You must know your username, password and the email address used to create the GitHub account.
 
-2. Check if you have Git installed.
+### 2. Check if you have Git installed.
 
+<p>
 Use the commands ```which git``` or ```git --version``` on the terminal/command line to check if git is already installed. Install git using appropriate instructions for Windows or Mac systems.
 
 The secure shell protocol or SSH helps connect with and authenticate remote servers and services. To setup SSH, 1) a public/private SSH key pair must be available or generated; 2) the private key must be added to the SSH agent, which is a helper program that tracks user's keys and passphrases; 3) the public SSH key must must be added to the Github account. This pair of keys are characters.
@@ -60,14 +61,14 @@ git config --global user.email email_used@service.com
 + Click on the profile photo on top-right, go to **Settings** and then to **SSH and GPG keys**.
 + Click on **New SSH key**, name the key in the *Title* box and copy the contents of the **.pub** public key in the *Key* box.
 
-3. Install [R](https://www.r-project.org/) and [Rstudio/posit](https://posit.co/).
+### 3. Install [R](https://www.r-project.org/) and [Rstudio/posit](https://posit.co/).
 
-4. Connect remote repository on GitHub and Rstudio
-
+### 4. Connect remote repository on GitHub and Rstudio
+<p>
 If you don't have one yet, create a repository on Github. 
 Open/restart Rstudio.
-Go to Tools > Global Options, and click on the Git/SVN section. Fill in the git executable path and click OK.
-
+Go to **Tools > Global Options**, and click on the *Git/SVN section*. Fill in the git executable path and click *OK*.
+</p>
 
 Use the Code > SSH git link from Github repository to clone or create a project or repository locally.
 
