@@ -63,11 +63,9 @@ git config --global user.email email_used@service.com
 
 ### 3. Install [R](https://www.r-project.org/) and [Rstudio/posit](https://posit.co/).
 
-### 4. Connect remote repository on GitHub and Rstudio
+### 4. Connect remote repository on GitHub and Rstudio.
 
-If you don't have one yet, create a repository on Github. 
-Open/restart Rstudio.
-Go to **Tools > Global Options**, and click on the *Git/SVN section*. Fill in the git executable path and click *OK*.
+If you don't have one yet, create a repository on Github. Open/restart Rstudio. Go to **Tools > Global Options**, and click on the *Git/SVN section*. Fill in the git executable path and click *OK*.
 
 
 Use the Code > SSH git link from Github repository to clone or create a project or repository locally.
