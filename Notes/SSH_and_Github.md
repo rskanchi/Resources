@@ -1,5 +1,5 @@
 
-# Connect your R and Github
+# Connect R and Github
 
 1. Create a [GitHub](https://github.com/) account: You must know your username, password and the email address used to create the GitHub account.
 
@@ -9,7 +9,7 @@ Use the commands ```which git``` or ```git --version``` on the terminal/command 
 
 The secure shell protocol or SSH helps connect with and authenticate remote servers and services. To setup SSH, 1) a public/private SSH key pair must be available or generated; 2) the private key must be added to the SSH agent, which is a helper program that tracks user's keys and passphrases; 3) the public SSH key must must be added to the Github account. This pair of keys are characters.
 
-## Check for existing SSH keys
+#### Check for existing SSH keys
 
 If the .ssh folder doesn't exist, it can be created by typing `mkdir .ssh` and the private and public key pair generated. But if the .ssh folder exists, existing SSH keys could be listed to check: 
 
@@ -27,7 +27,7 @@ Your identification has been saved in github.
 Your public key has been saved in github.pub.
 ```
 
-## Add private SSH key to the SSH-agent
+#### Add private SSH key to the SSH-agent
 
 + Start the SSH-agent `eval "$(ssh-agent -s)"`
 + Edit the **~/.ssh/config** file to automate loading keys into the SSH-agent. 
@@ -55,7 +55,7 @@ git config --global user.name your_github_username
 git config --global user.email email_used@service.com
 ```
 
-## Add public SSH key to the Github account
+#### Add public SSH key to the Github account
 + Logon to Github
 + Click on the profile photo on top-right, go to **Settings** and then to **SSH and GPG keys**.
 + Click on **New SSH key**, name the key in the *Title* box and copy the contents of the **.pub** public key in the *Key* box.
