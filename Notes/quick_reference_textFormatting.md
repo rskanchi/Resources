@@ -49,19 +49,19 @@ Content Cell  | Content Cell
 Symbols and equations
 ------------------------------------------------------------
 $\alpha \beta \gamma \Gamma \delta \Delta \epsilon \varepsilon \eta \theta \vartheta \Theta \kappa \lambda \Lambda \mu \nu \xi \Xi \pi \Pi \rho \Sigma \tau \upsilon \phi \chi$  
-x \le y  
-x \ge y  
+$x \le y $  
+$x \ge y $  
 $x^{n}$  
 $x_{n}$  
 $$\overline{x}, \hat{x}, \tilde{x}$$  
-\frac{x}{y}  
+$\frac{x}{y}$  
 $\binom{n}{x}$  
 $x \in S$  
 $S1 \cup S2$  
 $S1 \cap S2$  
 $S1 \subset S2$  
 $S1 \subseteq S2$  
-\sum_x=1^n x_i  
+$\sum_(i=1}^{n} x_i$  
 
 Other  
 ------------------------------------------------------------  
