@@ -32,9 +32,11 @@ Numbered
 Links and images
 ------------------------------------------------------------
 
-[text phrase to the link](link) for example [R markdown cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
+Text phrase to the link within square brackets followed by the link within parenthesis or round brackets. Example:
+[R markdown cheatsheet](https://www.rstudio.com/wp-content/uploads/2015/02/rmarkdown-cheatsheet.pdf)
 
-![optional caption text](path/to/img.png)
+For images, start with an exclamation symbol; then the text phrase within square brackets followed by the path to image within parenthesis. Example:
+![image text](path/to/img.png)
 
 Tables 
 ------------------------------------------------------------
@@ -50,7 +52,7 @@ Line break: end a line with 2 or more spaces
 
 Use `backticks` to specify inline code  
 
-superscript^2^ and subscript~2~  
+superscript^2^ and $$subscript_2$$ $$subscript_{for >2, use curly brackets}$$ otherwise it shows as $$subscript_for >2, use curly brackets$$
 
 ~~strikethrough~~  
 
