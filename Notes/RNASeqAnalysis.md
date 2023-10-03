@@ -1,4 +1,12 @@
-# Software 
+RNA seq analysis  
+------------------------------------------------------------
+
+
+
+
+
+Software 
+------------------------------------------------------------
 
 Software            | Info
 --------------------|----------------------------------------------------
@@ -10,3 +18,7 @@ FastQC              | Quality control tool for high-throughput sequence data; [F
 MultiQC             | Tool to summarize results from multiple samples; [MultiQC](https://multiqc.info/)
 
 The [hostmicrobe page](https://hostmicrobe.org/) includes [instructions]((https://protocols.hostmicrobe.org/conda)) on how to install Kallisto, FastQC and MultiQC using conda.
+
+References  
+------------------------------------------------------------
+[NGS Analysis](learn.gencore.bio.nyu.edu)
