@@ -2,7 +2,7 @@ RNA seq analysis
 ------------------------------------------------------------
 
 
-Linear model approach to differential expression analysis requires an understanding of (how to create design matrices)[https://github.com/rskanchi/Resources/tree/main/Library/DesignMatricesGuide.pdf]. 
+Linear model approach to differential expression analysis requires an understanding of [how to create design matrices](https://github.com/rskanchi/Resources/tree/main/Library/DesignMatricesGuide.pdf). 
 
 
 Software 
