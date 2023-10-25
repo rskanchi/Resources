@@ -1,23 +1,29 @@
 Gene Set Enrichment Analysis (GSEA) is an analytical approach to understand gene expression profiles at the level of genesets; described in  [*Gene set enrichment analysis: A knowledge-based approach for interpreting genome-wide expression profiles*](https://www.pnas.org/doi/full/10.1073/pnas.0506580102).  
 
-## GSEA overview
-Genome-wide expression data are increasing in volume and variety. Powerful computational tools and techniques are required to analyze these data, and to extract biological insight from such information. GSEA overcomes many analytical challenges by evaluating data at the level of gene sets, that is, groups of genes that share common biological function, chromosomal location or regulation.
+Genome-wide expression data are increasing in volume and variety. Powerful computational tools and techniques are required to analyze these data, and to extract biological insight from such information. GSEA overcomes many analytical challenges by evaluating data at the level of gene sets, that is, groups of genes that share common biological function, chromosomal location or regulation.  
+
 ### GSEA method
-* Requires genome-wide expression profiles from samples belonging to TWO phenotypic classes
-* Uses an *a priori* defined set S of genes based on biological knowledge (published information about biochemical pathways or co-expression)
-* Computes a ranked list L of genes according to their differential expression between the phenotypic classes using any suitable metric (e.g. correlation)
-* Determines whether the members of a gene set S are randomly distributed throughout L or primarily found at the top or bottom of L in which case the gene set is associated with the phenotypic distinction
-### Three key elements of GSEA method
-#### 1. Calculation of enrichment score (ES)
-ES of a gene set S represents the degree to which genes in S are overrepresented at the extremes (top or bottom) of the ranked list L. First, contributions of each gene in L are computed with a weighted bump for genes in set S and a constant dip for genes not in set S. The weights for genes in S depend on the magnitude of association of the gene with the phenotype. The ES(S) is the maximum deviation (from zero) of the running sum of these contributions.
-#### 2. Estimation of significance level of ES(S)
-Nominal p-value for each ES(S) is computed using permutation test procedure. The phenotype labels are permuted (thus preserving the complex correlation structure of the gene expression data or the gene-gene correlations) and the L and ES recomputed for each permutation. The empirical, nominal p-value of the observed ES is computed using this null distribution of ES, for each S.
-#### 3. Adjustment for multiple hypothesis testing
-When multiple gene sets are evaluated, the ES for each gene set S is normalized to account for the size of the set to give normalized ES (NES). For each NES, the false discovery rate (FDR) is computed by comparing the observed and null distributions of NES. The null  distributions of NES are generated using a fixed set of permutations for all S.
-## Input files
-Two example input files are part of this repository:
-1. leukemia.txt: The two phenotypic states/labels for *k* patients/samples are in the first row followed by the gene expression data (*N* genes) with gene name in the first column and expression values for the *k* samples.
-2. pathways.txt: Each row corresponds to a pathway/gene set with the pathway/gene set name followed a description of the pathway/gene set and gene names in that pathway/gene set.
+* Requires genome-wide expression profiles from samples belonging to TWO phenotypic classes  
+* Uses an *a priori* defined set S of genes based on biological knowledge (published information about biochemical pathways or co-expression)  
+* Computes a ranked list L of genes according to their differential expression between the phenotypic classes using any suitable metric (e.g. correlation)  
+* Determines whether the members of a gene set S are randomly distributed throughout L or primarily found at the top or bottom of L in which case the gene set is associated with the phenotypic distinction  
+
+### Three key elements of GSEA method  
+#### 1. Calculation of enrichment score (ES)  
+ES of a gene set S represents the degree to which genes in S are overrepresented at the extremes (top or bottom) of the ranked list L. First, contributions of each gene in L are computed with a weighted bump for genes in set S and a constant dip for genes not in set S. The weights for genes in S depend on the magnitude of association of the gene with the phenotype. The ES(S) is the maximum deviation (from zero) of the running sum of these contributions.  
+
+#### 2. Estimation of significance level of ES(S)  
+Nominal p-value for each ES(S) is computed using permutation test procedure. The phenotype labels are permuted (thus preserving the complex correlation structure of the gene expression data or the gene-gene correlations) and the L and ES recomputed for each permutation. The empirical, nominal p-value of the observed ES is computed using this null distribution of ES, for each S.  
+
+#### 3. Adjustment for multiple hypothesis testing  
+When multiple gene sets are evaluated, the ES for each gene set S is normalized to account for the size of the set to give normalized ES (NES). For each NES, the false discovery rate (FDR) is computed by comparing the observed and null distributions of NES. The null  distributions of NES are generated using a fixed set of permutations for all S.  
+
+### Input files  
+Two example input files are part of this repository:  
+
+1. leukemia.txt: The two phenotypic states/labels for *k* patients/samples are in the first row followed by the gene expression data (*N* genes) with gene name in the first column and expression values for the *k* samples.  
+
+2. pathways.txt: Each row corresponds to a pathway/gene set with the pathway/gene set name followed a description of the pathway/gene set and gene names in that pathway/gene set.  
 
 Read input files:
 
