@@ -1,0 +1,2 @@
+
+Broad Institue's [Single Cell Portal (SCP)](https://singlecell.broadinstitute.org/single_cell) is an interactive stage for data sharing nad visualization. It facilitates scientific exploration via a repository of single cell datasets. Dive into the single cell research and get more information on the portal's highlights in the [developers' article](https://www.biorxiv.org/content/10.1101/2023.07.13.548886v1)
