@@ -1,10 +1,8 @@
 RNA seq analysis  
 ------------------------------------------------------------
-
+RNA-seq data can be used to quantify gene expression and study the expression differences between diverse populations or experimental conditions.  
 
 Linear model approach to differential expression analysis requires an understanding of [how to create design matrices](https://github.com/rskanchi/Resources/tree/main/Library/DesignMatricesGuide.pdf). Design matrices define the structure of relationship between the explanatory and the response variables. Here, the explanatory variables are the treatments or conditions in which the samples exist or are designed to exist, and the response is the gene expression.
-
-
 
 Software 
 ------------------------------------------------------------
