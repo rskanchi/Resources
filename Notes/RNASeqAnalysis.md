@@ -20,6 +20,12 @@ STAR                | Algorithm for RNA-seq alignment, mapping reads to referenc
 
 The [hostmicrobe page](https://hostmicrobe.org/) includes [instructions](https://protocols.hostmicrobe.org/conda) on how to install Kallisto, FastQC and MultiQC using conda.
 
+Approaches  
+------------------------------------------------------------
+
+DESeq2
+Limma
+
 References  
 ------------------------------------------------------------
 [NGS Analysis](learn.gencore.bio.nyu.edu)  
