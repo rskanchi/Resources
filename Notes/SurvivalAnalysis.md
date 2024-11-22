@@ -2,12 +2,6 @@ Survival analysis
 ------------------------------------------------------------
 *Survival* analysis is the generic name given to the analysis when the outcome in a study is the *time to an event* of interest. There can be one or more events of interest. It differs from other types of data analysis as it accounts for **censored data**, where the event has not occurred for some subjects during the observation period.
 
-Key concepts include:
-- **Survival function (S(t))**: Probability of surviving beyond time \(t\).
-- **Hazard function (\(\lambda(t)\))**: Instantaneous risk of the event at time \(t\), given survival until \(t\).
-
-Applications of survival analysis span fields such as medicine, engineering, and social sciences.
-
 ## Use of Machine Learning in Survival Analysis
 
 Machine learning (ML) has increasingly been adopted in survival analysis to:
