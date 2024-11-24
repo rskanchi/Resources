@@ -39,11 +39,11 @@ ML methods allow incorporating **feature selection**, **penalization**, and **en
 
 | Feature                | LASSO                | Elastic Net         | Ranger               | CoxBoost            |
 |------------------------|----------------------|---------------------|----------------------|---------------------|
-| Feature Selection      | Yes (L1 penalty)    | Yes (L1 & L2 mix)  | No                   | Yes                 |
-| Non-linearity Handling | No                  | No                 | Yes                 | Partially           |
-| Handling Correlations  | Poor                | Good               | Excellent           | Excellent           |
-| Computational Cost     | Low                 | Moderate           | High                | Moderate            |
-| Interpretability       | High                | High               | Moderate to Low     | Moderate            |
+| Feature Selection      | Yes (L1 penalty)     | Yes (L1 & L2 mix)  | No                    | Yes                 |
+| Handling Non-linearity | No                   | No                 | Yes                   | Partially           |
+| Handling Correlations  | Poor                 | Good               | Excellent             | Excellent           |
+| Computational Cost     | Low                  | Moderate           | High                  | Moderate            |
+| Interpretability       | High                 | High               | Moderate to Low       | Moderate            |
 
 ## Conclusion
 
@@ -54,10 +54,10 @@ Each method has its strengths and is suited to specific scenarios:
 
 References  
 ------------------------------------------------------------
-[Survival analysis part I: basic concepts and first analyses](https://www.nature.com/articles/6601118)
-[Survival Analysis Part II: Multivariate data analysis – an introduction to concepts and methods](https://www.nature.com/articles/6601119)
-[Survival Analysis Part III: Multivariate data analysis – choosing a model and assessing its adequacy and fit](https://www.nature.com/articles/6601120)
-[Survival Analysis Part IV: Further concepts and methods in survival analysis](https://www.nature.com/articles/6601117)
-[Regularization Paths for Generalized Linear Models via Coordinate Descent](https://pmc.ncbi.nlm.nih.gov/articles/PMC2929880/)
-[Random survival forests for R](https://journal.r-project.org/articles/RN-2007-015/RN-2007-015.pdf)
-[Allowing for mandatory covariates in boosting estimation of sparse high-dimensional survival models](https://doi.org/10.1186/1471-2105-9-14)
+[Survival analysis part I: basic concepts and first analyses](https://www.nature.com/articles/6601118). 
+[Survival Analysis Part II: Multivariate data analysis – an introduction to concepts and methods](https://www.nature.com/articles/6601119). 
+[Survival Analysis Part III: Multivariate data analysis – choosing a model and assessing its adequacy and fit](https://www.nature.com/articles/6601120). 
+[Survival Analysis Part IV: Further concepts and methods in survival analysis](https://www.nature.com/articles/6601117). 
+[Regularization Paths for Generalized Linear Models via Coordinate Descent](https://pmc.ncbi.nlm.nih.gov/articles/PMC2929880/). 
+[Random survival forests for R](https://journal.r-project.org/articles/RN-2007-015/RN-2007-015.pdf). 
+[Allowing for mandatory covariates in boosting estimation of sparse high-dimensional survival models](https://doi.org/10.1186/1471-2105-9-14). 
