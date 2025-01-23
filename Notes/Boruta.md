@@ -10,8 +10,5 @@ The importance of each original feature is compared with a threshold. The thresh
 
 If you have time, please listen to the conversation below about the [Boruta article](https://github.com/rskanchi/Resources/blob/main/Library/Boruta_Feature_Selection_2010_JStatSoftware.pdf) created using NotebookLM.  
 
-<audio controls>
-  <source src="https://github.com/rskanchi/Resources/blob/main/audio/Boruta.wav" type="audio/wav">
-  Your browser does not support the audio element.
-</audio>
+[Download ~12 min audio file](https://github.com/rskanchi/Resources/blob/main/audio/Boruta.wav)
 
