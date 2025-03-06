@@ -71,3 +71,4 @@ If you don't have one yet, create a repository on Github. Open/restart Rstudio. 
 Use the Code > SSH git link from Github repository to clone or create a project or repository locally.
 
 For detailed steps checkout [GitHub Docs for connecting with SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).
+
