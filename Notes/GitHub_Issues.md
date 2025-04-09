@@ -91,6 +91,19 @@ git commit -m "comment"
 git push origin main
 ```
 
+### Check remote URL path (SSH path)   
+```
+git remote -v   
+```
+
+If remote URL is incorrect, update it using   
+```
+git remote set-url origin git@github.com:your_username/your_repo_name.git   
+```
+
+
+
+
 ### Clear git cache for tracked files
 ```
 git rm -r --cached .
@@ -207,4 +220,4 @@ You committed three files (file1, file2, file3) with a single commit message. Ho
 # Github issues
 Issues are a great way to track tasks, discussions, and any feature enhancements in a repository.
 
-
+[Happy Git and GitHub for the useR](https://happygitwithr.com/)
