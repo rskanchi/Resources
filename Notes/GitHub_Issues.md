@@ -188,7 +188,9 @@ You committed three files (file1, file2, file3) with a single commit message. Ho
         git reset <parent_commit_hash>
         ```
         * Example: `git reset 6ce8e82`
-    * This removes the commit with all three files from your branch's history, but keeps the files in your working directory as unstaged changes.
+    * This removes the commit with all three files from your branch's history and keeps the files in your working directory as unstaged changes.  
+    * Note that the remote repository will still reflect the changes you committed.  
+    * At this point, if you don't want to add the desired files, you can `git reset` and `git push --force-with-lease origin main`.  Otherwise, proceed to add the desired file.
 
 3.  **Stage and Commit the Desired Files:**
     * Stage the files you want to keep (file1 and file2):
