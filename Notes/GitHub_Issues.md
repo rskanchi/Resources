@@ -1,16 +1,14 @@
 # Update your local Git repository from GitHub
 
-This document outlines the process of updating your local Git repository to reflect changes made on a remote GitHub repository.
-
 ## 1. Fetching Changes
 
 The `git fetch` command downloads the latest changes from the remote repository without merging them into your local branches.
 
 **Steps:**
 
-1.  Open your (R studio) terminal or Git Bash.
-2.  Navigate to your local repository directory.
-3.  Execute the following command:
+- Open your (R studio) terminal or Git Bash.
+- Navigate to your local repository directory.
+- Execute the following command:
 
     ```bash
     git fetch origin
@@ -23,28 +21,39 @@ The `git fetch` command downloads the latest changes from the remote repository 
 
 After fetching the changes, you have two options: merging or rebasing.
 
-### Merging (Recommended for Most Cases)
+### Merging (Recommended but may prompt a Warning)
 
-Merging creates a new "merge commit" that combines your local changes with the remote changes.
-
-**Steps:**
-
-1.  Ensure you are on the branch you want to update (e.g., `main` or `master`).
-2.  Execute one of the following commands:
-
-    * `git merge origin/main` (If you have already done a fetch)
-    * `git pull origin main` (This combines fetch and merge into one command)
-
-    * Replace `main` with the appropriate branch name if needed.
-
-### Rebasing (For a Cleaner History)
-
-Rebasing rewrites your local branch's history by placing your commits on top of the latest remote commits. Use this if you want a linear history and understand the potential risks.
+Merging takes the changes from the remote branch and creates a new commit on your local branch that 
+merges them with your uncommitted local work; like a new "merge commit" that combines your local changes with the remote changes.
 
 **Steps:**
 
-1.  Ensure you are on the branch you want to update.
-2.  Execute the following command:
+- Ensure you are on the branch you want to update (e.g., `main`).
+- Execute one of the following commands:
+
+  * `git merge origin/main` (If you have already done a fetch)
+  * `git pull origin main` (This combines fetch and merge into one command) - **Note:** This command might show 
+      a warning about how to reconcile divergent branches. To be explicit, you can use:  
+    * `git pull --no-rebase origin main` (Explicitly performs a merge)
+  * Replace `main` with the appropriate branch name if you're working on a different branch.
+
+**Understanding the `git pull` Warning:**
+
+Git often suggests being explicit about how to handle divergent branches when using `git pull` without 
+specifying `--rebase` or `--no-rebase`. This is to ensure you understand whether you want to merge (the default) 
+or rebase. Using `--no-rebase` explicitly tells Git you want to perform a merge, which is the default behavior if 
+no option is specified.
+
+### Rebasing (Making Your Work Look Like It Happened After)
+
+Rebasing takes your local commits and temporarily moves them aside. Then, it updates your local branch with 
+the latest changes from the remote. Finally, it puts your commits back on top of those new changes. 
+This makes it look like your work happened *after* the remote work.
+
+**Steps:**
+
+-  Ensure you are on the branch you want to update.
+-  Execute the following command:
 
     ```bash
     git rebase origin/main
@@ -58,23 +67,23 @@ If Git detects conflicts (changes to the same lines of code), it will mark the c
 
 **Steps:**
 
-1.  Open the conflicting files in your editor and manually resolve the differences.
-2.  After resolving each conflict, use:
+- Open the conflicting files in your editor and manually resolve the differences.
+- After resolving each conflict, use:
 
     ```bash
     git add <conflicted_file>
     ```
 
-3.  Once all conflicts are resolved, continue the merge or rebase:
+- Once all conflicts are resolved, continue the merge or rebase:
 
     * For merge: `git commit` (Git will automatically create a merge commit message).
     * For rebase: `git rebase --continue`.
 
 Example Workflow (Using `git pull`)
 
-1.  `git fetch origin` (Optional, if you want to see the changes before merging)
-2.  `git pull origin main` (or the branch you want to update)
-3.  Resolve any conflicts.
+    * `git fetch origin` (Optional, if you want to see the changes before merging)
+    * `git pull origin main` (or the branch you want to update)
+    * Resolve any conflicts  
 
 ## Notes
 
@@ -84,7 +93,7 @@ Example Workflow (Using `git pull`)
 
 ## Detours
 
-### git commands
+### Frequently used git commands
 ```
 git add xx
 git commit -m "comment"
@@ -100,9 +109,6 @@ If remote URL is incorrect, update it using
 ```
 git remote set-url origin git@github.com:your_username/your_repo_name.git   
 ```
-
-
-
 
 ### Clear git cache for tracked files
 ```
@@ -141,7 +147,7 @@ git push origin main
 
 This section describes how to rename a file within your GitHub repository, ensuring the change is reflected in both your local and remote repositories.
 
-1.  **Rename the File Locally:**
+-  **Rename the File Locally:**
     * Use the `git mv` command to rename the file. This command handles both the file rename and staging the change for commit.
         ```bash
         git mv old_filename new_filename
@@ -151,7 +157,7 @@ This section describes how to rename a file within your GitHub repository, ensur
             git mv folder/old_filename folder/new_filename
             ```
 
-2.  **Commit and Push the Changes to the Remote Repository:**
+-  **Commit and Push the Changes to the Remote Repository:**
     * Commit the file rename with a descriptive commit message:
         ```bash
         git commit -m "Rename old_filename to new_filename"
@@ -171,7 +177,7 @@ This is useful when you've committed multiple files together but later decide th
 
 You committed three files (file1, file2, file3) with a single commit message. However, you now want to remove file3 from the remote repository while keeping file1 and file2.
 
-1.  **Identify the Parent Commit:**
+-  **Identify the Parent Commit:**
     * Use `git log --oneline` to view the commit history.
     * Identify the commit hash of the commit *before* the commit that added the three files.
     * Example Output:
@@ -182,7 +188,7 @@ You committed three files (file1, file2, file3) with a single commit message. Ho
         ```
     * In this case, the parent commit hash *before* the three files were committed is `6ce8e82`.
 
-2.  **Reset to the Parent Commit:**
+-  **Reset to the Parent Commit:**
     * Reset your local branch to the parent commit:
         ```bash
         git reset <parent_commit_hash>
@@ -192,7 +198,7 @@ You committed three files (file1, file2, file3) with a single commit message. Ho
     * Note that the remote repository will still reflect the changes you committed.  
     * At this point, if you don't want to add the desired files, you can `git reset` and `git push --force-with-lease origin main`.  Otherwise, proceed to add the desired file(s).
 
-3.  **Stage and Commit the Desired Files:**
+-  **Stage and Commit the Desired Files:**
     * Stage the files you want to keep (file1 and file2):
         ```bash
         git add <file1> <file2>
@@ -202,14 +208,14 @@ You committed three files (file1, file2, file3) with a single commit message. Ho
         git commit -m "Add file1 and file2 (excluding file3)"
         ```
 
-4.  **Delete the Unwanted File Locally:**
+-  **Delete the Unwanted File Locally:**
     * Since file3 is now untracked, delete it using your operating system's commands:
         * Linux/macOS: `rm folder_name/file3`
         * Windows: `del folder_name\file3`
         
         I had added the filetype to .gitignore because I didn;t want to delete the file.
 
-5.  **Force Push the Changes:**
+-  **Force Push the Changes:**
     * Because you've rewritten history, you need to force push your local branch to the remote:
         ```bash
         git push --force-with-lease origin main
