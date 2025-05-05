@@ -170,7 +170,7 @@ This section describes how to rename a file within your GitHub repository, ensur
 
 ### Selective File Removal After Commit
 
-This section outlines the steps to remove specific files from a previously made commit, while retaining other files from that same commit, on your remote repository. 
+To remove specific files from a previous commit, while retaining other files from that same commit, on your remote repository. 
 This is useful when you've committed multiple files together but later decide that certain files should not be included in the remote.
 
 **Scenario:**
@@ -209,14 +209,10 @@ You committed three files (file1, file2, file3) with a single commit message. Ho
         ```
 
 -  **Delete the Unwanted File Locally:**
-    * Since file3 is now untracked, delete it using your operating system's commands:
-        * Linux/macOS: `rm folder_name/file3`
-        * Windows: `del folder_name\file3`
-        
-        I had added the filetype to .gitignore because I didn;t want to delete the file.
+    * Since file3 is now untracked, delete it using `rm`. I sometimes add the file types to .gitignore when I don't wish to delete the file.
 
 -  **Force Push the Changes:**
-    * Because you've rewritten history, you need to force push your local branch to the remote:
+    * Because you've rewritten git history, you need to force push the local branch to the remote
         ```bash
         git push --force-with-lease origin main
         ```
@@ -224,6 +220,19 @@ You committed three files (file1, file2, file3) with a single commit message. Ho
         If other people are working on the same branch, this can cause significant issues.
         * If using an older version of git: `git push -f origin main`
 
+### Commit a specific file type when it's in the repo's gitignore list
+
+I have the *.png* file type in my `.gitignore` file. But I want to commit a specific *.png* file. In this situation, just add the file as a "negation"
+in `.gitignore`.
+
+```!<path/to/png/file/wrt/repoHEAD/filename.png>```
+
+### Reset the staging area to the last commit
+
+```git reset HEAD``` will unstage all changes currently in the staging area.   
+
+This command is also useful for me when I delete a folder from GitHub repo to a non-GitHub folder, and still see the files being tracked
+even when the folder/files were not previously committed. It acts as a *refresh* button!    
 
 # Github issues
 Issues are a great way to track tasks, discussions, and any feature enhancements in a repository.
