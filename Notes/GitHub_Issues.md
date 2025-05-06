@@ -234,6 +234,12 @@ in `.gitignore`.
 This command is also useful for me when I delete a folder from GitHub repo to a non-GitHub folder, and still see the files being tracked
 even when the folder/files were not previously committed. It acts as a *refresh* button!    
 
+### Reset after modifying `.gitignore`
+
+Trying to add, commit and push a folder? And noticed using `git status` that a few files are missing because of the way `.gitignore` is set up?  
+I modified the `.gitignore` to include the file types. The files of interest do not automatically doesn;t changd the staged files. You need to 
+`git reset <path/to/file/or/folder>` or `git reset` to unstage everything. Then `git add <path/to/file/or/folder>` and `commit` and `push`.   
+
 # Github issues
 Issues are a great way to track tasks, discussions, and any feature enhancements in a repository.
 
