@@ -236,9 +236,10 @@ even when the folder/files were not previously committed. It acts as a *refresh*
 
 ### Reset after modifying `.gitignore`
 
-Trying to add, commit and push a folder? And noticed using `git status` that a few files are missing because of the way `.gitignore` is set up?  
-I modified the `.gitignore` to include the file types. The files of interest do not automatically doesn;t changd the staged files. You need to 
-`git reset <path/to/file/or/folder>` or `git reset` to unstage everything. Then `git add <path/to/file/or/folder>` and `commit` and `push`.   
+When trying to add, commit and push a folder, I noticed using `git status` that a few files were missing because of the way `.gitignore` is set up. 
+I modified the `.gitignore` to include the file types (because that's what I wanted to do for this specific repo; not force push the files). 
+Modifying `.gitignore` doesn't automatically modify the staging area. You need to `git reset <path/to/file/or/folder>` or `git reset` 
+to unstage everything. Then `git add <path/to/file/or/folder>` and `commit` and `push`.   
 
 # Github issues
 Issues are a great way to track tasks, discussions, and any feature enhancements in a repository.
