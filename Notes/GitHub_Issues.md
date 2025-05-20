@@ -143,6 +143,16 @@ git commit -m "rm previously tracked, now ignored files"
 git push origin main  
 ```
 
+### You git added a file but want to pull the file back from the staging area
+
+```
+git restore --staged path/to/file 
+
+git restore --staged . # to unstage all files
+
+
+```
+
 ### Renaming Files Locally and Remotely
 
 This section describes how to rename a file within your GitHub repository, ensuring the change is reflected in both your local and remote repositories.
