@@ -111,6 +111,10 @@ git remote set-url origin git@github.com:your_username/your_repo_name.git
 ```
 
 ### Clear git cache for tracked files
+
+If you have added files to `.gitignore` but they are still being tracked by git, you can clear the cache for all files in the repository. 
+This will remove all files from the staging area, allowing you to re-add them according to your updated `.gitignore` rules.
+
 ```
 git rm -r --cached .
 ```
@@ -143,13 +147,12 @@ git commit -m "rm previously tracked, now ignored files"
 git push origin main  
 ```
 
-### You git added a file but want to pull the file back from the staging area
+### You git added a file but want to pull it back from the staging area
 
 ```
 git restore --staged path/to/file 
 
 git restore --staged . # to unstage all files
-
 
 ```
 
