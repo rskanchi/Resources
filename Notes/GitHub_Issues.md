@@ -141,26 +141,23 @@ git restore --staged . # to unstage all files
 
 This section describes how to rename a file within your GitHub repository, ensuring the change is reflected in both your local and remote repositories.
 -  **Rename the File Locally:**  
-  - Use the `git mv` command to rename the file. This command handles both the file rename and staging the change for commit.  
-  - If the file is in the root directory of your repository, use:
-    ```
-    git mv old_filename new_filename
-    ```
-  - If the file is in a subdirectory, provide the appropriate path:   
-  
+    - Use the `git mv` command to rename the file. This command handles both the file rename and staging the change for commit.  
+    - If the file is in the root directory of your repository, use:  
+      ```
+      git mv old_filename new_filename
+      ```
+    - If the file is in a subdirectory, provide the appropriate path:  
         ```
         git mv folder/old_filename folder/new_filename
         ```
 
 -  **Commit and Push the Changes to the Remote Repository:**
     - Commit the file rename with a descriptive commit message:
-    
         ```
         git commit -m "Rename old_filename to new_filename"
         git push origin <branch_name>
         ```
     - If you are on your main branch it is usually:
-        
         ```
         git push origin main
         ```
