@@ -10,12 +10,11 @@ The `git fetch` command downloads the latest changes from the remote repository 
 - Navigate to your local repository directory.
 - Execute the following command:
 
-    ```bash
+    ```
     git fetch origin
     ```
-
-    * `git fetch`: Retrieves the latest changes.
-    * `origin`: The default name for your remote repository (usually your GitHub repo).
+    - `git fetch`: Retrieves the latest changes.
+    - `origin`: The default name for your remote repository (usually your GitHub repo).
 
 ## 2. Merging or Rebasing Changes
 
@@ -31,11 +30,11 @@ merges them with your uncommitted local work; like a new "merge commit" that com
 - Ensure you are on the branch you want to update (e.g., `main`).
 - Execute one of the following commands:
 
-  * `git merge origin/main` (If you have already done a fetch)
-  * `git pull origin main` (This combines fetch and merge into one command) - **Note:** This command might show 
+  - `git merge origin/main` (If you have already done a fetch)
+  - `git pull origin main` (This combines fetch and merge into one command) - **Note:** This command might show 
       a warning about how to reconcile divergent branches. To be explicit, you can use:  
-    * `git pull --no-rebase origin main` (Explicitly performs a merge)
-  * Replace `main` with the appropriate branch name if you're working on a different branch.
+    - `git pull --no-rebase origin main` (Explicitly performs a merge)
+  - Replace `main` with the appropriate branch name if you're working on a different branch.
 
 **Understanding the `git pull` Warning:**
 
@@ -55,11 +54,10 @@ This makes it look like your work happened *after* the remote work.
 -  Ensure you are on the branch you want to update.
 -  Execute the following command:
 
-    ```bash
+    ```
     git rebase origin/main
     ```
-
-    * Replace `main` with the appropriate branch name if needed.
+- Replace `main` with the appropriate branch name if needed.
 
 ## 3. Resolving Conflicts
 
@@ -69,27 +67,23 @@ If Git detects conflicts (changes to the same lines of code), it will mark the c
 
 - Open the conflicting files in your editor and manually resolve the differences.
 - After resolving each conflict, use:
-
-    ```bash
+    ```
     git add <conflicted_file>
     ```
 
-- Once all conflicts are resolved, continue the merge or rebase:
-
-    * For merge: `git commit` (Git will automatically create a merge commit message).
-    * For rebase: `git rebase --continue`.
+- Once all conflicts are resolved, continue the merge or rebase:   
+    - For merge: `git commit` (Git will automatically create a merge commit message).
+    - For rebase: `git rebase --continue`.
 
 Example Workflow (Using `git pull`)
-
-    * `git fetch origin` (Optional, if you want to see the changes before merging)
-    * `git pull origin main` (or the branch you want to update)
-    * Resolve any conflicts  
+    - `git fetch origin` (Optional, if you want to see the changes before merging)
+    - `git pull origin main` (or the branch you want to update)
+    - Resolve any conflicts  
 
 ## Notes
 
-* **Branch:** Make sure you're on the correct branch before running `git merge` or `git rebase`.
-* **Stash changes:** If you have uncommitted changes, use `git stash` to save them temporarily and `git stash pop` to reapply them later.
-
+- **Branch:** Make sure you're on the correct branch before running `git merge` or `git rebase`.
+- **Stash changes:** If you have uncommitted changes, use `git stash` to save them temporarily and `git stash pop` to reapply them later.
 
 ## Detours
 
@@ -113,8 +107,7 @@ git remote set-url origin git@github.com:your_username/your_repo_name.git
 ### Clear git cache for tracked files
 
 If you have added files to `.gitignore` but they are still being tracked by git, you can clear the cache for all files in the repository. 
-This will remove all files from the staging area, allowing you to re-add them according to your updated `.gitignore` rules.
-
+This will remove all files from the staging area, allowing you to re-add them according to your updated `.gitignore` rules.  
 ```
 git rm -r --cached .
 ```
@@ -130,17 +123,14 @@ git push origin main
 Suppose you added .docx to .gitignore file. If they are still showing in the staging area, then they are being tracked by git; likely because they were committed at least once before the .docx was added to .gitignore.  
 
 To fix this situation, stop tracking these files while still keeping them on local machine.  
-
 ```
 git rm --cached *.docx
 
 git commit -m "stop tracking .docx"  
 git push origin main   
-
 ```
 
 To remove all ignored files from git's tracking at once, to match with .gitignore:  
-
 ```
 git rm --cached -r .  
 git commit -m "rm previously tracked, now ignored files"  
@@ -153,31 +143,35 @@ git push origin main
 git restore --staged path/to/file 
 
 git restore --staged . # to unstage all files
-
 ```
 
 ### Renaming Files Locally and Remotely
 
 This section describes how to rename a file within your GitHub repository, ensuring the change is reflected in both your local and remote repositories.
 
--  **Rename the File Locally:**
-    * Use the `git mv` command to rename the file. This command handles both the file rename and staging the change for commit.
-        ```bash
-        git mv old_filename new_filename
+-  **Rename the File Locally:**  
+    - Use the `git mv` command to rename the file. This command handles both the file rename and staging the change for commit.  
+    - If the file is in the root directory of your repository, use:  
+    
+      ```
+      git mv old_filename new_filename
+      ```
+    - If the file is in a subdirectory, provide the appropriate path:   
+    
         ```
-        * If the file is in a subdirectory, provide the appropriate path:
-            ```bash
-            git mv folder/old_filename folder/new_filename
-            ```
+        git mv folder/old_filename folder/new_filename
+        ```
 
 -  **Commit and Push the Changes to the Remote Repository:**
-    * Commit the file rename with a descriptive commit message:
-        ```bash
+    - Commit the file rename with a descriptive commit message:
+    
+        ```
         git commit -m "Rename old_filename to new_filename"
         git push origin <branch_name>
         ```
-        * If you are on your main branch it is usually:
-        ```bash
+    - If you are on your main branch it is usually:
+        
+        ```
         git push origin main
         ```
 
@@ -194,6 +188,7 @@ You committed three files (file1, file2, file3) with a single commit message. Ho
     * Use `git log --oneline` to view the commit history.
     * Identify the commit hash of the commit *before* the commit that added the three files.
     * Example Output:
+    
         ```
         14a7b96 (HEAD -> main, origin/main) Add file1, file2, file3
         6ce8e82 re-filtering ...
@@ -203,7 +198,8 @@ You committed three files (file1, file2, file3) with a single commit message. Ho
 
 -  **Reset to the Parent Commit:**
     * Reset your local branch to the parent commit:
-        ```bash
+    
+        ```
         git reset <parent_commit_hash>
         ```
         * Example: `git reset 6ce8e82`
@@ -213,11 +209,13 @@ You committed three files (file1, file2, file3) with a single commit message. Ho
 
 -  **Stage and Commit the Desired Files:**
     * Stage the files you want to keep (file1 and file2):
-        ```bash
+    
+        ```
         git add <file1> <file2>
         ```
     * Commit these files with a new commit message:
-        ```bash
+    
+        ```
         git commit -m "Add file1 and file2 (excluding file3)"
         ```
 
@@ -226,7 +224,8 @@ You committed three files (file1, file2, file3) with a single commit message. Ho
 
 -  **Force Push the Changes:**
     * Because you've rewritten git history, you need to force push the local branch to the remote
-        ```bash
+    
+        ```
         git push --force-with-lease origin main
         ```
         * **Important:** Force pushing overwrites the remote branch's history. Only use this if you are sure you know what you are doing. 
