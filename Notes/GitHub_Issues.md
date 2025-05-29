@@ -9,7 +9,6 @@ The `git fetch` command downloads the latest changes from the remote repository 
 - Open your (R studio) terminal or Git Bash.
 - Navigate to your local repository directory.
 - Execute the following command:
-
     ```
     git fetch origin
     ```
@@ -29,7 +28,6 @@ merges them with your uncommitted local work; like a new "merge commit" that com
 
 - Ensure you are on the branch you want to update (e.g., `main`).
 - Execute one of the following commands:
-
   - `git merge origin/main` (If you have already done a fetch)
   - `git pull origin main` (This combines fetch and merge into one command) - **Note:** This command might show 
       a warning about how to reconcile divergent branches. To be explicit, you can use:  
@@ -50,10 +48,8 @@ the latest changes from the remote. Finally, it puts your commits back on top of
 This makes it look like your work happened *after* the remote work.
 
 **Steps:**
-
 -  Ensure you are on the branch you want to update.
 -  Execute the following command:
-
     ```
     git rebase origin/main
     ```
@@ -64,13 +60,11 @@ This makes it look like your work happened *after* the remote work.
 If Git detects conflicts (changes to the same lines of code), it will mark the conflicting files.
 
 **Steps:**
-
 - Open the conflicting files in your editor and manually resolve the differences.
 - After resolving each conflict, use:
     ```
     git add <conflicted_file>
     ```
-
 - Once all conflicts are resolved, continue the merge or rebase:   
     - For merge: `git commit` (Git will automatically create a merge commit message).
     - For rebase: `git rebase --continue`.
@@ -98,7 +92,6 @@ git push origin main
 ```
 git remote -v   
 ```
-
 If remote URL is incorrect, update it using   
 ```
 git remote set-url origin git@github.com:your_username/your_repo_name.git   
@@ -138,7 +131,6 @@ git push origin main
 ```
 
 ### You git added a file but want to pull it back from the staging area
-
 ```
 git restore --staged path/to/file 
 
@@ -148,16 +140,14 @@ git restore --staged . # to unstage all files
 ### Renaming Files Locally and Remotely
 
 This section describes how to rename a file within your GitHub repository, ensuring the change is reflected in both your local and remote repositories.
-
 -  **Rename the File Locally:**  
-    - Use the `git mv` command to rename the file. This command handles both the file rename and staging the change for commit.  
-    - If the file is in the root directory of your repository, use:  
-    
-      ```
-      git mv old_filename new_filename
-      ```
-    - If the file is in a subdirectory, provide the appropriate path:   
-    
+  - Use the `git mv` command to rename the file. This command handles both the file rename and staging the change for commit.  
+  - If the file is in the root directory of your repository, use:
+    ```
+    git mv old_filename new_filename
+    ```
+  - If the file is in a subdirectory, provide the appropriate path:   
+  
         ```
         git mv folder/old_filename folder/new_filename
         ```
