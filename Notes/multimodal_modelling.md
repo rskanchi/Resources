@@ -41,6 +41,10 @@ There are 3 common approaches to integration after ensuring samples are aligned 
 2. Intermediate integration: Extract features from each modality, then combine. Allows for more focused feature extraction but requires careful alignment of features.
 3. Late integration: Train separate models and combine predictions. Flexible and interpretable, but may miss interactions between modalities.
 
-- Choose the approach based on data characteristics, model complexity, and interpretability needs.
-- Deep learning can do all this but interpretability is an issue.
+
+## Check these out
+
+[Science 2025, Review of multimodal machine learning approaches in healthcare](https://www.sciencedirect.com/science/article/pii/S1566253524004688). 
+[Cell 2024, Multimodal analysis unveils tumor microenvironment heterogeneity linked to immune activity and evasion](https://www.cell.com/iscience/fulltext/S2589-0042(24)01754-1).   
+[Nature 2022, Multimodal machine learning in precision health: A scoping review](https://www.nature.com/articles/s41746-022-00712-8).   
 
