@@ -82,11 +82,20 @@ Example Workflow (Using `git pull`)
 ## Detours
 
 ### Frequently used git commands
+
+Must know this!  
 ```
 git add xx
 git commit -m "comment"
 git push origin main
 ```
+
+### If a file type is in `.gitignore` but you want to commit it
+If you have a file type in your `.gitignore` but you want to commit it, you can use the `-f` (force) option with `git add`; followed by the commit and push commands as usual.  
+```
+git add -f path/to/file
+```
+
 
 ### Check remote URL path (SSH path)   
 ```
