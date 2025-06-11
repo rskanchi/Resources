@@ -11,6 +11,9 @@ echo $STY
 ```
 
 - Detach from the Session
+
+The session stays alive in the background; whatever you’re running inside (trimming, etc.) keeps running. You can reattach to check on it.  
+
 ```bash
 # keyboard shortcuts
 # Linux/Windows: Ctrl + A, then press D
