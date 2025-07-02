@@ -22,8 +22,8 @@ Summarization and normalization are critical steps in analyzing Affymetrix GeneC
     
     3.  Log-scale linear additive model: A log-scale linear additive model is fitted to the log-transformed PM intensities.
 
-$$
 
+$$
 \log_2(\text{PM}_{ij}) = e_i + a_j + \epsilon\_{ij} 
 $$
 
