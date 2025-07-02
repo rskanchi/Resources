@@ -16,13 +16,14 @@ Summarization and normalization are critical steps in analyzing Affymetrix GeneC
 
 -   Robust Multi-array Average (RMA): The RMA method addresses the limitations of previous methods by adopting a new, empirically motivated statistical model.
 
-1.  Background correction: PM intensities alone are used to adjust raw probe intensities to reduce noise. This is based on empirical findings that MM values often contain signal and that subtracting them can introduce noise.
-
-2.  Quantile normalization: Removes systematic technical variation between arrays, making them directly comparable.
-
-3.  Log-scale linear additive model: A log-scale linear additive model is fitted to the log-transformed PM intensities.
+    1.  Background correction: PM intensities alone are used to adjust raw probe intensities to reduce noise. This is based on empirical findings that MM values often contain signal and that subtracting them can introduce noise.
+    
+    2.  Quantile normalization: Removes systematic technical variation between arrays, making them directly comparable.
+    
+    3.  Log-scale linear additive model: A log-scale linear additive model is fitted to the log-transformed PM intensities.
 
 $$
+
 \log_2(\text{PM}_{ij}) = e_i + a_j + \epsilon\_{ij} 
 $$
 
