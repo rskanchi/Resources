@@ -22,9 +22,9 @@ Summarization and normalization are critical steps in analyzing Affymetrix GeneC
 
 3.  Log-scale linear additive model: A log-scale linear additive model is fitted to the log-transformed PM intensities.
 
-$$
+$
 log_2({PM}_{ij}) = e_i + a_j + \epsilon_{ij}
-$$
+$
 
 where:
 
@@ -32,7 +32,7 @@ where:
 -   $a_j$ is the probe-specific effect
 -   $\epsilon_{ij}$ is the error term (random noise)
 
-This model accounts for both the log-scale expression value of the gene on an array and a log-scale affinity effect for each probe, along with an error term.\
+This model accounts for both the log-scale expression value of the gene on an array and a log-scale affinity effect for each probe, along with an error term.  
 
 This comprehensive approach leads to significantly improved performance in terms of precision, consistency of fold change estimates, and sensitivity/specificity in detecting differential expression.
 
