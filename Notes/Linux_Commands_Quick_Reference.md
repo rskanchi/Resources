@@ -8,7 +8,7 @@
 - `ls -a`: Show hidden files.
 - `ls -lh`: Long listing format with human-readable file sizes.
 
-### symbolik lunks
+### symbolik links
 - `ln -s /path/to/original /path/to/link`: Create a symbolic link to a file or directory.  
 - `ls -l /path/to/link`: Show details of the symbolic link like where the synlink points.   
 - `ln -sfn /new/target /path/to/link`: Update the target of an existing symbolic link.  
@@ -35,6 +35,7 @@
 - `cp source destination`: Copy a file.
 - `cp -r source_folder destination`: Copy a folder and its contents.
 - `mv source destination`: Move or rename a file or folder.
+- `rsync -avh <source_folder/file_pattern> <username@cluster:/target/folder/path> : copy files from local to cluster folder. 
 
 ### Viewing File Contents
 - `cat file_name`: Display file contents.
