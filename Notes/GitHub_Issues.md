@@ -78,6 +78,10 @@ Example Workflow (Using `git pull`)
 
 - **Branch:** Make sure you're on the correct branch before running `git merge` or `git rebase`.
 - **Stash changes:** If you have uncommitted changes, use `git stash` to save them temporarily and `git stash pop` to reapply them later.
+  - `git stash list` lists all stashed changes   
+  - `git stash drop` deletes most recent stash from the stash history   
+  - `git stash clear` deletes all stashes from the stash history   
+  
 
 ## Detours
 
@@ -248,6 +252,35 @@ When trying to add, commit and push a folder, I noticed using `git status` that 
 I modified the `.gitignore` to include the file types (because that's what I wanted to do for this specific repo; not force push the files). 
 Modifying `.gitignore` doesn't automatically modify the staging area. You need to `git reset <path/to/file/or/folder>` or `git reset` 
 to unstage everything. Then `git add <path/to/file/or/folder>` and `commit` and `push`.   
+
+### Move a subfolder out of a repo and make it its own repo
+
+Folder structure: github > Rshiny > Vennify.    
+`Vennify` subfolder is in `Rshiny`; with the following `Vennify` will be filtered along with the commit history, `github` will be renamed to `Vennify`. 
+
+In a different folder, clone `Rshiny`: `git clone https://github.com/yourusername/Rshiny.git`    
+If not already available, install the tool `git-filter-repo` using   
+- `brew install git-filter-repo` if using macOS with Homebrew   
+- `python3 -m pip install --user git-filter-repo` if no homebrew    
+
+At the `Rshiny`terminal, `git filter-repo --subdirectory-filter Vennify`, if needed, use `--force` in the end   
+Move one directory up and `mv Rshiny Vennify`       
+At the `Vennify` terminal, 
+
+```
+git remote remove origin
+git remote add origin https://github.com/username/Vennify.git
+git push -u origin main
+```
+
+
+
+
+
+
+
+
+
 
 # Github issues
 Issues are a great way to track tasks, discussions, and any feature enhancements in a repository.
