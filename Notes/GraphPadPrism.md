@@ -73,15 +73,10 @@ If you need to change any paramter or option, click on `Analyze > Two -Way ANOVA
 
 ### Interpret results
 
--   Review the ANOVA table:
+-   Check model assumptions \
 
-    -   `Main effect of Factor 1`: Informs about the overall differences in the levels of Factor 1.\
-    -   `Main effect of Factor 2`: Informs about the overall differences in the levels of Factor 2.\
-    -   `Factor 1 × Factor 2 interaction`: Reveals if patterns of Factor 2 differ by Factor 1 levels.\
-    -   P-values \< 0.05 typically indicate significance, but consider effect sizes for practical importance.
+-   Review the ANOVA table: Interaction effect first; depending on the significance of interaction, interpret main effects or posthoc comparisons within levels of factors. \
 
 -   Examine multiple comparisons (if selected).
-
--   Check assumptions: Prism reports sphericity (Mauchly's test) and suggests corrections if violated. If normality is an issue, consider non-parametric alternatives (though Prism's Friedman test is for one-way RM only; for two-way, transform data or use mixed models).
 
 -   Customize graphs
