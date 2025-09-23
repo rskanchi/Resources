@@ -273,14 +273,22 @@ git remote add origin https://github.com/username/Vennify.git
 git push -u origin main
 ```
 
+### Git Branching & Pull Requests
+In collaborative research, a clean and reliable codebase is essential and teams create a workflow to ensure new features or bug fixes are thoroughly reviewed and tested before being added to the main branch (stable pipeline). A branch is a separate, isolated copy of code. Any changes on the branch do not affect the main code (prevents functional version's code-breaking), keeping it clean and safe. A pull request (PR) is created to propose merging the new branch into the main branch. It's not a command. It serves as a platform for discussion, code review, and approval. 
 
+Create a new branch and automatically switch to it: `git checkout -b feature/methods_v2`   
 
+Stage changes and commit them on the new branch: 
 
+```
+git add .
+git commit -m "ver2 - added lasso, ridge, elasticnet, gbm"
+git push --set-upstream origin feature/methods_v2
+```
 
+After the git push command, go to the remote repository on GitHub. Find the message at the top of the repo page about the new branch that was just pushed. Create a Pull Request (click on the button leading to `compare` and `pull request`) to start the peer-review process and formally invite team members to review the code before it is merged into the main branch. This action takes you to a new screen where you can write a title and description for your changes, tag your colleagues for review, see the exact differences between your new branch and the main branch, etc.
 
-
-
-
+Note that the local terminal is for managing local code and interacting with remote repository (commit changes and push them to the remote). GitHub's website/remote is the collaboration platform.
 
 # Github issues
 Issues are a great way to track tasks, discussions, and any feature enhancements in a repository.
