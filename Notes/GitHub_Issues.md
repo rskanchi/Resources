@@ -290,6 +290,14 @@ After the git push command, go to the remote repository on GitHub. Find the mess
 
 Note that the local terminal is for managing local code and interacting with remote repository (commit changes and push them to the remote). GitHub's website/remote is the collaboration platform.
 
+### Rename a repository
+- Remote name: On GitHub, rename the repo under Settings > General > Repository name > Rename.   
+This also sets up the redirect link in case you've shared the old repo link with someone.  
+- Update local repo name: In the local repo folder (path/to/repo), execute the command below. Find the SSH repo link under <>Code:  
+`git remote set-url origin https://github.com/<username>/<new_repo_name>.git`    
+- Go to one level up in the folder structure of the local repo to rename the old repo name (just to sync it with the remote name). This step is optional.
+`mv <old_repo_name> <new_repo_name>`     
+
 # Github issues
 Issues are a great way to track tasks, discussions, and any feature enhancements in a repository.
 
