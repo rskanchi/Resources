@@ -298,6 +298,22 @@ This also sets up the redirect link in case you've shared the old repo link with
 - Go to one level up in the folder structure of the local repo to rename the old repo name (just to sync it with the remote name). This step is optional.
 `mv <old_repo_name> <new_repo_name>`     
 
+### Rstudio can commit but not push to remote
+- `git status` to check if there are any mismatches between local and remote repo. RStudio’s Git pane might be out of sync if internal status cache is not refreshed properly.  
+- `git remote -v` to check if the `fetch` and `push` URLs are correct. If not fix the URL using `git remote set-url origin <correct_repo_URL>` from the remote's SSH URL under `<> Code`.  
+- `git remote -vv` to confirm branch tracking info. If you see something like the below, you're fine:   
+```
+* main 123abc [origin/main] Commit message
+```
+If, however, you something like the below, set the upstream branch to push to:   
+```
+* main 123abc Commit message
+```
+
+`git branch --set-upstream-to=origin/main main`
+
+
+
 # Github issues
 Issues are a great way to track tasks, discussions, and any feature enhancements in a repository.
 
