@@ -150,7 +150,7 @@ git restore --staged path/to/file
 git restore --staged . # to unstage all files
 ```
 
-### Renaming Files Locally and Remotely
+### Renaming Files (or folders) Locally and Remotely
 
 This section describes how to rename a file within your GitHub repository, ensuring the change is reflected in both your local and remote repositories.
 -  **Rename the File Locally:**  
@@ -163,6 +163,8 @@ This section describes how to rename a file within your GitHub repository, ensur
         ```
         git mv folder/old_filename folder/new_filename
         ```
+- Use the `git mv` command to rename folders too:``` git mv old/folder new/folder ```
+
 
 -  **Commit and Push the Changes to the Remote Repository:**
     - Commit the file rename with a descriptive commit message:
