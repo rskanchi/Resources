@@ -1,3 +1,13 @@
+
+### Frequently used git commands
+
+Must know this!  
+```
+git add xx
+git commit -m "comment"
+git push origin main
+```
+
 # Update your local Git repository from GitHub
 
 ## 1. Fetching Changes
@@ -85,21 +95,11 @@ Example Workflow (Using `git pull`)
 
 ## Detours
 
-### Frequently used git commands
-
-Must know this!  
-```
-git add xx
-git commit -m "comment"
-git push origin main
-```
-
 ### If a file type is in `.gitignore` but you want to commit it
 If you have a file type in your `.gitignore` but you want to commit it, you can use the `-f` (force) option with `git add`; followed by the commit and push commands as usual.  
 ```
 git add -f path/to/file
 ```
-
 
 ### Check remote URL path (SSH path)   
 ```
@@ -119,14 +119,26 @@ git rm -r --cached .
 ```
 
 ### Your branch is ahead of 'origin/main' by n commits
+
 Check local commits using ```git log origin/main..HEAD``` 
 Reset last few commits, say 4 using ```git reset --soft HEAD~4```
+The staging area should have the files you expect.
 
-Remove deleted files from tracking ```git add -u```. It stages only modified and deleted files.  
-git commit -m "remove D files from tracking". This saves the change.  
-git push origin main
+### Remove deleted files from tracking 
 
-Suppose you added .docx to .gitignore file. If they are still showing in the staging area, then they are being tracked by git; likely because they were committed at least once before the .docx was added to .gitignore.  
+Stage only modified and deleted files.  
+```git add -u```  
+
+Save the change.  
+
+```git commit -m "remove D files from tracking"```   
+
+```git push origin main```   
+
+### Stop tracking files that were once tracked
+
+Suppose you added .docx to .gitignore file. If they are still showing in the staging area, 
+then they are being tracked by git; likely because they were committed at least once before the .docx was added to .gitignore.  
 
 To fix this situation, stop tracking these files while still keeping them on local machine.  
 ```
