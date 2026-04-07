@@ -126,14 +126,13 @@ The staging area should have the files you expect.
 
 ### Remove deleted files from tracking 
 
-Stage only modified and deleted files.  
-```git add -u```  
+Stage only modified and deleted files:  `git add -u`   
 
-Save the change.  
-
-```git commit -m "remove D files from tracking"```   
-
-```git push origin main```   
+Commit and push to remote:  
+```
+git commit -m "remove D files from tracking"   
+git push origin main   
+```   
 
 ### Stop tracking files that were once tracked
 
@@ -143,7 +142,6 @@ then they are being tracked by git; likely because they were committed at least 
 To fix this situation, stop tracking these files while still keeping them on local machine.  
 ```
 git rm --cached *.docx
-
 git commit -m "stop tracking .docx"  
 git push origin main   
 ```
@@ -156,10 +154,13 @@ git push origin main
 ```
 
 ### You git added a file but want to pull it back from the staging area
-```
-git restore --staged path/to/file 
 
-git restore --staged . # to unstage all files
+The commands below can also be used when you previously committed a file and then locally made some changes to it; 
+but want the committed version of the file to be in the local directory instead of the modified version.  
+
+```
+git restore --staged path/to/file  
+git restore --staged . # to unstage all files  
 ```
 
 ### Renaming Files (or folders) Locally and Remotely
@@ -288,6 +289,7 @@ git push -u origin main
 ```
 
 ### Git Branching & Pull Requests
+
 In collaborative research, a clean and reliable codebase is essential and teams create a workflow to ensure new features or bug fixes are thoroughly reviewed and tested before being added to the main branch (stable pipeline). A branch is a separate, isolated copy of code. Any changes on the branch do not affect the main code (prevents functional version's code-breaking), keeping it clean and safe. A pull request (PR) is created to propose merging the new branch into the main branch. It's not a command. It serves as a platform for discussion, code review, and approval. 
 
 Create a new branch and automatically switch to it: `git checkout -b feature/methods_v2`   
@@ -305,9 +307,10 @@ After the git push command, go to the remote repository on GitHub. Find the mess
 Note that the local terminal is for managing local code and interacting with remote repository (commit changes and push them to the remote). GitHub's website/remote is the collaboration platform.
 
 ### Rename a repository
+
 - Remote name: On GitHub, rename the repo under Settings > General > Repository name > Rename.   
 This also sets up the redirect link in case you've shared the old repo link with someone.  
-- Update local repo name: In the local repo folder (path/to/repo), execute the command below. Find the SSH repo link under <>Code:  
+- Update local repo name: In the local repo folder (path/to/repo), execute the command below. Find the SSH repo link under `<>Code`:  
 `git remote set-url origin https://github.com/<username>/<new_repo_name>.git`    
 - Go to one level up in the folder structure of the local repo to rename the old repo name (just to sync it with the remote name). This step is optional.
 `mv <old_repo_name> <new_repo_name>`     
