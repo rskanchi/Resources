@@ -35,7 +35,7 @@
 - `cp source destination`: Copy a file.
 - `cp -r source_folder destination`: Copy a folder and its contents.
 - `mv source destination`: Move or rename a file or folder.
-- `rsync -avh <source_folder/file_pattern> <username@cluster:/target/folder/path>`: copy files from local to cluster folder. 
+- `rsync -avh <source_folder/file_pattern> <username@cluster:/target/folder/path>`: Copy files from local to cluster folder. 
 
 ### Viewing File Contents
 - `cat file_name`: Display file contents.
@@ -93,7 +93,7 @@
 - `du -sh folder_name`: Show the size of a folder.
 - `free -h`: Display memory usage.
 - `uptime`: Show system uptime and load averages.
-
+- `squeue -h -t PD | wc -l`: check the numebr of jobs in queue
 ---
 
 ## Archiving and Compression
