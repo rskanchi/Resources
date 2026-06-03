@@ -77,6 +77,7 @@
 - `ps aux`: Show all running processes.
 - `top`: Display active processes in real-time.
 - `htop`: Interactive process viewer (requires installation).
+- `qstat -u $USER | awk 'NR>2 {print $10}' | sort | uniq -c`: view USER's jobs summary, like the number running, in Q, etc.  
 
 ### Managing Processes
 - `kill PID`: Terminate a process by its ID.
