@@ -16,14 +16,38 @@ conda create -n multiqc -c conda-forge -c bioconda multiqc
 
 To summarize the sample reports, `cd` to the folder with the raw fastq or trimmed files and run `multiqc .`.  
 
-Example: To run fastqc on multiple fastq.gz samples and then summarize using multiqc:
+Example: Run `fastqc` on multiple fastq.gz samples and then summarize using `multiqc`:
 
 ``` 
-
+# fastqc
 for m in  *fastq.gz; do 
   fastqc -o fastqc $m; 
 done
 
+# multiqc
+conda activate multiqc
+which multiqc
+multiqc --version
+
 multiqc .
 
 ```
+
+## Issues
+
+```
+conda activate multiqc
+which multiqc
+multiqc --version
+```
+
+The last command throws and error: `OpenBLAS error: Memory allocation still failed after 10 retries, giving up.`
+
+Limit OpenBLAS threads manually. Use the following commands then try `multiqc --version`.
+
+```
+export OPENBLAS_NUM_THREADS=1
+export OMP_NUM_THREADS=1
+```
+
+You should see output like: `multiqc, version 1.19`. You're preventing excessive memory allocation nad thread spawning failures.
