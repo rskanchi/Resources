@@ -176,7 +176,7 @@ For differential expression analyses using limma, edgeR, or DESeq2, it is usuall
 
 ---
 
-## Should I batch-correct before differential expression analysis?
+## Why shouldn't I batch-correct before differential expression analysis?
 
 Usually, **no**.
 
@@ -270,3 +270,20 @@ dds <- DESeq(dds)
 * ComBat-seq should be applied to raw RNA-seq counts.
 * For differential expression analysis, it is generally preferable to model batch in the design formula rather than batch-correct the counts.
 * Always verify that biological signal is preserved after batch correction.
+
+---
+
+## References
+
+- Johnson WE, Li C, Rabinovic A. Adjusting batch effects in microarray expression data using empirical Bayes methods. *Biostatistics*. 2007.
+- Zhang Y, Parmigiani G, Johnson WE. ComBat-seq: Batch effect adjustment for RNA-seq count data. *NAR Genomics and Bioinformatics*. 2020.
+- Love MI, Huber W, Anders S. Moderated estimation of fold change and dispersion for RNA-seq data with DESeq2. *Genome Biology*. 2014.
+
+
+## Related topics
+- Normalization
+- Principal Component Analysis (PCA)
+- Differential Expression
+- Design Matrix
+
+
