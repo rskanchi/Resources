@@ -184,7 +184,7 @@ theme_classic()
 
 * Normalization
 * Variance stabilizing transformation (VST)
-* [Batch correction]()
+* Batch correction
 * Differential expression
 * Design matrix
 * What is UMAP?
