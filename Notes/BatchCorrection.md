@@ -1,11 +1,3 @@
-# What are batch effects?
-
-Batch effects are unwanted technical differences between samples that arise from factors such as sequencing run, library preparation, processing date, plate, laboratory, or technician. These technical differences can introduce systematic variation that is unrelated to the underlying biology of interest.
-
-If batch effects are not accounted for, samples may cluster by technical variables rather than biological conditions, leading to misleading biological conclusions and potentially incorrect downstream analyses.
-
----
-
 # Why perform batch correction?
 
 The goal of batch correction is to reduce unwanted technical variation while preserving true biological differences.
@@ -20,7 +12,15 @@ Importantly, batch correction is **not** intended to remove biological variation
 
 ---
 
-# How do I know whether batch correction is needed?
+## What are batch effects?
+
+Batch effects are unwanted technical differences between samples that arise from factors such as sequencing run, library preparation, processing date, plate, laboratory, or technician. These technical differences can introduce systematic variation that is unrelated to the underlying biology of interest.
+
+If batch effects are not accounted for, samples may cluster by technical variables rather than biological conditions, leading to misleading biological conclusions and potentially incorrect downstream analyses.
+
+---
+
+## How do I know whether batch correction is needed?
 
 A common first step is to visualize the samples using Principal Component Analysis (PCA).
 
@@ -39,7 +39,7 @@ If samples cluster primarily by a technical variable rather than a biological va
 
 ---
 
-# How do I know whether batch correction worked?
+## How do I know whether batch correction worked?
 
 Compare PCA plots before and after correction.
 
@@ -53,7 +53,7 @@ It is often helpful to generate PCA plots colored by multiple variables both bef
 
 ---
 
-# Is batch correction the same as normalization?
+## Is batch correction the same as normalization?
 
 No, batch correction is **not** the same as normalization.  
 
@@ -68,7 +68,7 @@ Normalization should generally be performed before considering batch correction.
 
 ---
 
-# Should I perform PCA on raw counts?
+## Should I perform PCA on raw counts?
 
 Generally, no.
 
@@ -84,7 +84,7 @@ These transformations stabilize the variance across genes, making distances betw
 
 ---
 
-# Why use variance stabilizing transformation (VST)?
+## Why use variance stabilizing transformation (VST)?
 
 RNA-seq counts are heteroscedastic, meaning genes with larger counts also tend to have larger variances.
 
@@ -99,7 +99,7 @@ VST is intended for visualization and exploratory analyses, and not for differen
 
 ---
 
-# What does `blind = TRUE` mean?
+## What does `blind = TRUE` mean?
 
 When running `vst(dds, blind = TRUE)`, the transformation ignores the experimental design and estimates the mean-variance relationship across all samples.
 
@@ -112,9 +112,9 @@ In contrast, `vst(dds, blind = FALSE)` uses the experimental design during dispe
 
 ---
 
-# Which batch correction method should I use?
+## Which batch correction method should I use?
 
-## ComBat
+### ComBat
 
 ComBat uses an empirical Bayes framework to estimate and remove known batch effects from continuous expression data.
 
@@ -125,13 +125,13 @@ It is commonly applied to:
 * Metabolomics
 * Other normalized expression datasets
 
-### Advantages
+#### Advantages
 
 * Widely used
 * Robust empirical Bayes framework
 * Preserves biological covariates when specified
 
-### Limitations
+#### Limitations
 
 * Requires known batch labels
 * Assumes batch effects can be modeled statistically
@@ -139,7 +139,7 @@ It is commonly applied to:
 
 ---
 
-## ComBat-seq
+### ComBat-seq
 
 ComBat-seq extends ComBat specifically for RNA-seq count data.
 
@@ -147,20 +147,20 @@ Instead of assuming normally distributed expression values, ComBat-seq models co
 
 Unlike the original ComBat, ComBat-seq operates directly on raw count data.
 
-### Advantages
+#### Advantages
 
 * Designed specifically for RNA-seq counts
 * Maintains integer count structure
 * Suitable for downstream count-based analyses
 
-### Limitations
+#### Limitations
 
 * Requires known batch labels
 * Cannot separate biology from batch if they are completely confounded
 
 ---
 
-## limma::removeBatchEffect()
+### limma::removeBatchEffect()
 
 `removeBatchEffect()` removes batch effects using a linear model.
 
@@ -205,7 +205,7 @@ This distinction explains why both approaches are commonly used within the same 
 
 ---
 
-# Can batch correction remove real biology?
+## Can batch correction remove real biology?
 
 Yes, batch correction can remove real biology.
 
@@ -219,7 +219,7 @@ This situation is known as **confounding**, and no statistical method can comple
 
 ---
 
-# Example workflow using ComBat-seq
+## Example workflow using ComBat-seq
 
 ```r
 library(DESeq2)
@@ -260,7 +260,7 @@ dds <- DESeq(dds)
 
 ---
 
-# What I want to remember!
+## What I want to remember!
 
 * Batch effects represent unwanted technical variation.
 * PCA is one of the simplest ways to detect and evaluate batch effects.
