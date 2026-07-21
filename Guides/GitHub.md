@@ -8,33 +8,25 @@ git commit -m "comment"
 git push origin main
 ```
 
-# Update your local Git repository from GitHub
+# Update your local Git repository from changes made on the remote (by others on team)
 
-## 1. Fetching Changes
+## 1. Fetching changes
 
 The `git fetch` command downloads the latest changes from the remote repository without merging them into your local branches.
 
-**Steps:**
-
-- Open your (R studio) terminal or Git Bash.
+- Open your (Rstudio) terminal or Git Bash.
 - Navigate to your local repository directory.
-- Execute the following command:
-    ```
-    git fetch origin
-    ```
+- Execute the following command: `git fetch origin`
     - `git fetch`: Retrieves the latest changes.
     - `origin`: The default name for your remote repository (usually your GitHub repo).
 
-## 2. Merging or Rebasing Changes
+## 2. Merging or Rebasing changes
 
 After fetching the changes, you have two options: merging or rebasing.
 
 ### Merging (Recommended but may prompt a Warning)
 
-Merging takes the changes from the remote branch and creates a new commit on your local branch that 
-merges them with your uncommitted local work; like a new "merge commit" that combines your local changes with the remote changes.
-
-**Steps:**
+Merging takes the changes from the remote branch and creates a new commit on your local branch that merges them with your uncommitted local work; like a new "merge commit" that combines your local changes with the remote changes.
 
 - Ensure you are on the branch you want to update (e.g., `main`).
 - Execute one of the following commands:
@@ -46,35 +38,22 @@ merges them with your uncommitted local work; like a new "merge commit" that com
 
 **Understanding the `git pull` Warning:**
 
-Git often suggests being explicit about how to handle divergent branches when using `git pull` without 
-specifying `--rebase` or `--no-rebase`. This is to ensure you understand whether you want to merge (the default) 
-or rebase. Using `--no-rebase` explicitly tells Git you want to perform a merge, which is the default behavior if 
-no option is specified.
+Git often suggests being explicit about how to handle divergent branches when using `git pull` without specifying `--rebase` or `--no-rebase`. This is to ensure you understand whether you want to merge (the default) or rebase. Using `--no-rebase` explicitly tells Git you want to perform a merge, which is the default behavior if no option is specified.
 
-### Rebasing (Making Your Work Look Like It Happened After)
+### Rebasing 
 
-Rebasing takes your local commits and temporarily moves them aside. Then, it updates your local branch with 
-the latest changes from the remote. Finally, it puts your commits back on top of those new changes. 
-This makes it look like your work happened *after* the remote work.
+Rebasing takes your local changes and temporarily moves them aside. It then updates your local branch with the latest changes from the remote. Finally, it puts your local edits back on top of those new changes. This makes it look like your work happened *after* the remote work.
 
-**Steps:**
--  Ensure you are on the branch you want to update.
--  Execute the following command:
-    ```
-    git rebase origin/main
-    ```
+- Ensure you are on the branch you want to update.
+- Execute the following command: `git rebase origin/main`
 - Replace `main` with the appropriate branch name if needed.
 
-## 3. Resolving Conflicts
+## 3. Resolving conflicts
 
 If Git detects conflicts (changes to the same lines of code), it will mark the conflicting files.
 
-**Steps:**
 - Open the conflicting files in your editor and manually resolve the differences.
-- After resolving each conflict, use:
-    ```
-    git add <conflicted_file>
-    ```
+- After resolving each conflict, use `git add <conflicted_file>`
 - Once all conflicts are resolved, continue the merge or rebase:   
     - For merge: `git commit` (Git will automatically create a merge commit message).
     - For rebase: `git rebase --continue`.
@@ -84,8 +63,6 @@ Example Workflow (Using `git pull`)
     - `git pull origin main` (or the branch you want to update)
     - Resolve any conflicts  
 
-## Notes
-
 - **Branch:** Make sure you're on the correct branch before running `git merge` or `git rebase`.
 - **Stash changes:** If you have uncommitted changes, use `git stash` to save them temporarily and `git stash pop` to reapply them later.
   - `git stash list` lists all stashed changes   
@@ -93,7 +70,7 @@ Example Workflow (Using `git pull`)
   - `git stash clear` deletes all stashes from the stash history   
   
 
-## Detours
+## Detours, specific issues
 
 ### If a file type is in `.gitignore` but you want to commit it
 If you have a file type in your `.gitignore` but you want to commit it, you can use the `-f` (force) option with `git add`; followed by the commit and push commands as usual.  
@@ -363,11 +340,6 @@ Already have a repo and would like to create another; then, any updates committe
   git push origin main
   git push team main
   ```
-- 
-
-
-
-
 
 # Github issues
 Issues are a great way to track tasks, discussions, and any feature enhancements in a repository.
