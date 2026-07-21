@@ -163,7 +163,7 @@ git restore --staged path/to/file
 git restore --staged . # to unstage all files  
 ```
 
-### Renaming Files (or folders) Locally and Remotely
+### Renaming files (or folders) Locally and Remotely
 
 This section describes how to rename a file within your GitHub repository, ensuring the change is reflected in both your local and remote repositories.
 -  **Rename the File Locally:**  
@@ -328,6 +328,44 @@ If, however, you something like the below, set the upstream branch to push to:
 ```
 
 `git branch --set-upstream-to=origin/main main`
+
+# One project/codebase, two remote repositories
+Already have a repo and would like to create another; then, any updates committed and pushed to both repos.
+- create the new repo on GitHub
+  - **Don't initialize it with `README`, `.gitignore`, License**
+  - Just empty repo
+- Check current remote on bash or Rstudio using `git remote -v`
+  - You'll probably see something like:  
+  
+  ```
+  origin  git@github.com:rskanchi/omicsPoweR.git (fetch)
+  origin  git@github.com:rskanchi/omicsPoweR.git (push)  
+  ```
+
+- Add the new repo as a second remote: `git remote add team git@github.com:CoarfaBCM/omicsPoweR.git`
+- Verify the remotes: `git remote -v`
+  - You should see:
+  
+  ```
+  origin  git@github.com:rskanchi/omicsPoweR.git (fetch)
+  origin  git@github.com:rskanchi/omicsPoweR.git (push)
+  team    git@github.com:CoarfaBCM/omicsPoweR.git (fetch)
+  team    git@github.com:CoarfaBCM/omicsPoweR.git (push)  
+  ```
+
+- Push the repo to new `team` repo for the first time: `git push -u team main`.  
+- Every subsequent commit:
+
+  ```
+  git add <filename>
+  git commit -m "commit message"
+  
+  git push origin main
+  git push team main
+  ```
+- 
+
+
 
 
 
