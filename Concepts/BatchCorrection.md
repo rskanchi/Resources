@@ -282,7 +282,7 @@ dds <- DESeq(dds)
 
 ## Related topics
 - [Normalization](Normalization.md)
-- [Principal Component Analysis, PCA](Concepts/PCA.md)
+- [Principal Component Analysis, PCA](PCA.md)
 - Differential Expression
 - Design Matrix
 

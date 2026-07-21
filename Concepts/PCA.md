@@ -182,12 +182,12 @@ theme_classic()
 
 ## Related topics
 
-* Normalization
-* Variance stabilizing transformation (VST)
-* Batch correction
-* Differential expression
-* Design matrix
-* What is UMAP?
+- [Normalization](Normalization.md)
+- Variance stabilizing transformation, VST
+- [Batch correction](BatchCorrection.md)
+- Differential expression
+- Design matrix
+- What is UMAP?
 
 
 
