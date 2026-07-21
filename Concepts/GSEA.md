@@ -83,13 +83,13 @@ Let
 Define the cumulative hit term:
 
 $$P_{hit}(S,i)=
-\sum_{\substack{g_j\in S\\j\le i}}
+\sum_{\substack{g_j\in S\,j\le i}}
 \frac{|r_j|^p}{\sum_{g_k\in S}|r_k|^p},$$
 
 and the cumulative miss term:
 
 $$P_{miss}(S,i)=
-\sum_{\substack{g_j\notin S\\j\le i}}
+\sum_{\substack{g_j\notin S\,j\le i}}
 \frac{1}{N-N_H}.$$
 
 The running score is
