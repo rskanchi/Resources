@@ -2,7 +2,7 @@
 
 Gene set enrichment methods do not discover pathways from scratch. They test whether our data support biological knowledge that has already been organized into **gene sets**.
 
-That sounds simple until we open (MSigDB)[https://www.gsea-msigdb.org/gsea/msigdb] and see there are so many **gene set collections**, with a few hundreds to thousands of gene sets in each collection.
+That sounds simple until we open [MSigDB](https://www.gsea-msigdb.org/gsea/msigdb) and see there are so many **gene set collections**, with a few hundreds to thousands of gene sets in each collection.
 
 ---
 
@@ -34,7 +34,7 @@ The notation is easy. The important part is the biological statement connecting 
 
 ## Is a pathway the same as a gene set?
 
-Not always; a (biological pathway)[https://www.genome.gov/about-genomics/fact-sheets/Biological-Pathways-Fact-Sheet] usually describes a series of actions in a cell (an organized biological mechanism) that results in the formation of a new product or a change in that cell. 
+Not always; a [biological pathway](https://www.genome.gov/about-genomics/fact-sheets/Biological-Pathways-Fact-Sheet) usually describes a series of actions in a cell (an organized biological mechanism) that results in the formation of a new product or a change in that cell. 
 
 A gene set is simply a collection of genes with a defined relationship. It can be researcher-defined! Some examples of genesets to say it is broader in context:
 
@@ -205,7 +205,7 @@ See [ORA](ORA.md) and [GSEA](GSEA.md).
 - One gene can belong to many gene sets.
 - Significant terms may be driven by overlapping genes.
 - Database version, organism, identifier type, and mapping quality matter.
-- An `enriched` gene set doesn't mean the correspoding pathway is activated or inhibited.
+- An *enriched* gene set doesn't mean the correspoding pathway is activated or inhibited.
 - The collection determines which biological hypotheses can be tested.
 - ORA and GSEA use the same biological knowledge but test it differently.
 
