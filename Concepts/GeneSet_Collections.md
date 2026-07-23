@@ -8,9 +8,7 @@ That sounds simple until we open [MSigDB](https://www.gsea-msigdb.org/gsea/msigd
 
 ## What exactly is a gene set?
 
-A gene set is a group of genes connected by a defined biological, functional, regulatory, positional, or experimental relationship.
-
-A gene set may represent:
+A gene set is a group of genes connected by a defined biological, functional, regulatory, positional, or experimental relationship. It may represent:
 
 - a biological process
 - a signaling or metabolic pathway
@@ -19,16 +17,6 @@ A gene set may represent:
 - genes regulated by the same transcription factor
 - genes associated with a disease or phenotype 
 - genes that changed together in a published experiment
-
-Mathematically, a gene set can be written as
-
-\[
-S = \{g_1, g_2, \ldots, g_K\},
-\]
-
-where \(K\) is the number of genes assigned to the set.
-
-The notation is easy. The important part is the biological statement connecting the genes.
 
 ---
 
