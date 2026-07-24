@@ -222,7 +222,7 @@ ORA treats genes as either selected or not selected, whereas GSEA considers wher
 ## Related topics
 
 - Over-representation analysis (ORA)
-- Gene set collections (Hallmark, GO, KEGG, Reactome)
+- [Gene set collections] (GeneSet_Collections.md)
 - Differential expression
 - [Principal component analysis, PCA](PCA.md)
 
