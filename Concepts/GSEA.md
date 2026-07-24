@@ -1,10 +1,22 @@
-# Geneset enrichment analysis (GSEA)
+# Why do we need Gene Set Enrichment Analysis (GSEA)?
 
-Sometimes biology whispers instead of shouts.
+A common strategy in differential expression analysis is to identify genes that are significantly associated with the phenotype, such as genes that are differentially expressed between two conditions or strongly correlated with an outcome. While this approach is useful, it has several limitations.
+
+**What if biology acts through groups of genes rather than individual genes?**
+
+Many biological processes are driven by coordinated changes across groups of functionally related genes rather than by a few genes with large expression changes. Looking only at individually significant genes may overlook these coordinated patterns.
+
+**Sometimes biology whispers instead of shouts**
 
 A biological process may involve many genes changing modestly and coordinately between two conditions or groups. There may be genes that cleared significance threshold with no obvious theme, or no genes at all that survive the strict multiple testing correction even though PCA plot showed a textbook-clean separation between the two groups.
 
-GSEA asks if there is a group of genes, explaining a pathway or a process or a pre-defined geneset, that is *collectively* nudged toward one end of a **ranked list** of genes in the study. GSEA is designed to detect such collective whisper or pattern.
+**What if multiple studies of the same biological question identify different genes?**
+
+Studies investigating the same biological question often produce different lists of differentially expressed genes because gene-level rankings are sensitive to sampling variation, technical noise, and biological heterogeneity. Although the individual genes may differ, the underlying biological pathways are often much more reproducible.
+
+**How does GSEA address these limitations?**
+
+Rather than asking whether individual genes are differentially expressed, GSEA asks if there is a group of genes, explaining a pathway or a process or a pre-defined geneset, that is *collectively* nudged toward one end of a **ranked list** of genes in the study. It is a non-parametric method (no assumptions about the data distribution) and is specifically designed to detect these coordinated "whispers" of biology that may be missed by gene-by-gene analyses.
 
 ---
 
@@ -222,20 +234,6 @@ ORA treats genes as either selected or not selected, whereas GSEA considers wher
 ## Related topics
 
 - Over-representation analysis (ORA)
-- [Gene set collections] (GeneSet_Collections.md)
+- [Gene set collections](GeneSet_Collections.md)
 - Differential expression
 - [Principal component analysis, PCA](PCA.md)
-
----
-
-# GSEA, in short; my very first draft!
-
-Genome-wide expression data are increasing in volume and variety. Powerful computational tools and techniques are required to analyze these data, and to extract biological insight from such information. GSEA overcomes many analytical challenges by evaluating expression profiles at the level of gene sets, that is, groups of genes that share common biological function, chromosomal location or regulation.
-
-An intuitive approach is to find genes that *significantly* associated with the phenotype, i.e., differentially expressed between two conditions or highly correlated with an outcome.There are several limitation to the intuitive approach:
-
-- *Not genes but pathways*: What if the biological differences arise not from a handful of individual genes, but from interconnected networks where hundreds of genes with small or large effects act together?
-- *Signal is too small*: After correcting for the statistical noise of testing thousands of genes, it's possible that no single gene meets the strict threshold for significance, even when a critical pathway is clearly affected with small and coordinated shifts across many genes in that pathway.\
-- *Reproducibility*: Different groups studying the same problem often get non-overlapping top gene lists, since ranking methods are sensitive to noise and variation.
-
-Gene Set Enrichment Analysis (GSEA) is a non-parametric method that determines whether a predefined set of genes is collectively enriched at the extremes of a ranked gene list. The method calculates an Enrichment Score (ES) using a running-sum statistic. To visualize this, imagine the ranked list of genes as a road. The score steps upward each time a gene from a set appears and steps downward for genes outside the set. A high peak in this running sum indicates that the genes are clustered at one end of the list. GSEA assesses the significance of this clustering using permutation testing, normalizes the score (NES) to account for set size differences, and controls for multiple testing with a False Discovery Rate (FDR) to ensure the results are biologically robust.
