@@ -12,3 +12,57 @@ If you have time, please listen to the conversation below about the [Boruta arti
 
 [Download ~12 min audio file from this folder](https://github.com/rskanchi/Resources/blob/main/audio/Boruta.wav)
 
+
+
+-----------
+
+# Boruta
+
+## What is Boruta?
+
+Boruta is a feature-selection algorithm used to identify variables that contain useful information for predicting an outcome. It is particularly helpful when a dataset contains many features, some of which may be irrelevant or contribute mostly noise.
+
+Unlike minimal-optimal feature-selection methods, which seek a small subset of variables sufficient for accurate prediction, Boruta aims to identify all variables that are relevant to the outcome. The [Boruta R package](https://github.com/rskanchi/Resources/blob/main/Library/Boruta_Feature_Selection_2010_JStatSoftware.pdf) implements the algorithm using random-forest variable importance.
+
+## How does Boruta work?
+
+### 1. Create shadow features
+
+Boruta creates a randomized copy of every original feature by shuffling its values. These randomized variables are called **shadow features**.
+
+Because their relationship with the outcome has been destroyed, shadow features provide a reference for the importance that could arise by chance.
+
+### 2. Compare original and shadow features
+
+A random forest model is trained using both the original and shadow features. The importance of each original feature is compared with the highest importance observed among the shadow features. When an original feature performs better than this threshold, it records a **hit**.
+
+The basic idea is:
+
+> A feature should be considered relevant only if it consistently performs better than the best randomized feature.
+
+### 3. Repeat the comparison
+
+The procedure is repeated across multiple iterations. Boruta uses the number of hits accumulated by each feature to classify it as:
+
+- **Confirmed**: consistently more important than the shadow features
+- **Rejected**: consistently less important than the shadow features
+- **Tentative**: insufficient evidence to make a clear decision
+
+## How should the results be interpreted?
+
+A confirmed feature contains information associated with the outcome beyond what would be expected from a randomized variable. However, this does not mean that the feature is causal or that it will necessarily improve prediction in an independent dataset.
+
+Correlated features may also be selected together because Boruta searches for all relevant features rather than only a minimal predictive subset.
+
+## What I want to remember
+
+- Boruta compares real features with randomized versions of itself (shadow features)
+- A feature records a hit when its importance exceeds that of the best shadow feature
+- Repeated comparisons classify features as confirmed, rejected, or tentative
+- Boruta seeks **all relevant features**, not necessarily the smallest optimal feature set
+
+## Additional resource
+
+The following audio discussion of the [Boruta article](https://github.com/rskanchi/Resources/blob/main/Library/Boruta_Feature_Selection_2010_JStatSoftware.pdf) was created using NotebookLM:
+
+[Download the approximately 12-minute audio file](https://github.com/rskanchi/Resources/blob/main/audio/Boruta.wav)
