@@ -1,82 +1,143 @@
+# Connect R and GitHub
 
-# Connect R and Github
+- Create an account on GitHub 
+- Install R and RStudio 
+- Install Git locally 
 
-1. Create an account on GitHub.  
-2. Install Git locally.  
-3. Install R and Rstudio.  
+Use the commands `which git` or `git --version` on the terminal/command line to check if git is already installed.
+
+---
+
+### Install Git (Mac)
+
+On a Mac, running `git --version` when git isn't installed will prompt you to install the Xcode Command Line Tools (which include git). If no popup appears automatically, trigger it manually:
+
+```
+xcode-select --install
+```
 
 
-<p>
-Use the commands `which git` or `git --version` on the terminal/command line to check if git is already installed. 
-Install git using appropriate instructions for Windows or Mac systems.  
+This opens a separate installer window and takes 5–10 mins to install. Once it finishes, confirm with:
 
-The secure shell protocol or SSH helps connect with and authenticate remote servers and services. To setup SSH:  
 
-1) a public/private SSH key pair must be available or generated    
-2) the private key must be added to the SSH agent, which is a helper program that tracks user's keys and passphrases   
-3) the public SSH key must must be added to the Github account    
-</p>  
+```
+git --version
+```
+
+### Set Git identity
+
+This sets the name and email that will be attached to your commits. This is separate from your GitHub username/login.
+
+```
+git config --global user.name "Your Full Name"
+git config --global user.email "your_github_email@example.com"
+```
+
+Use the email associated with your GitHub account (check under GitHub > Settings > Emails if unsure). You can verify your settings anytime with `git config -l`.
+
+
+### Setting up SSH
+
+The secure shell protocol (SSH) helps connect with and authenticate remote servers and services. To set up SSH:
+
+- a public/private SSH key pair must be available or generated
+- the private key must be added to the SSH agent, which is a helper program that tracks your keys and passphrases
+- the public SSH key must be added to the GitHub account
 
 #### Check for existing SSH keys
-<p>
-At the Git bash or terminal, your $HOME folder, type `ls -al ~/.ssh` to see if there are files in the .ssh folder.
 
-+ If the key pair exists, you'll see files such as `<filename>` and `<filename.pub>`. 
-The key pair could be added to the ssh agent. 
+At the Git bash or terminal, in your $HOME folder, type `ls -al ~/.ssh` to see if there are files in the .ssh folder.
 
-+ If the `.ssh` folder doesn't exist, create one using `mkdir .ssh` and then the private and public key pair can be generated. 
+- If the key pair exists, you'll see files such as `<filename>` and `<filename.pub>`. The key pair could be added to the ssh agent (skip to the [Existing SSH key](#if-you-already-have-an-existing-ssh-key) section below).
 
-In the steps below, the key pair name is **github**.
-</p>
+- If the `.ssh` folder doesn't exist, that's expected on a new machine. The (`ssh-keygen`) will create it automatically.
+
+#### Generate a new SSH key pair
+
+GitHub's current recommended key type is <b>ed25519</b> (a modern elliptic-curve algorithm which is smaller, faster, and more secure than the older RSA default).
 
 ```
-ssh-keygen -t rsa
-Generating public/private rsa key pair.
-Enter file in which to save the key (/home/xxxx/.ssh/id_rsa): github
-Enter passphrase (empty for no passphrase): 
-Enter same passphrase again: 
-Your identification has been saved in github.
-Your public key has been saved in github.pub.
+ssh-keygen -t ed25519 -C "your_github_email@example.com"
 ```
 
-#### Add private SSH key to the SSH-agent
+- **Enter a file in which to save the key**: press Enter to accept the default location (`~/.ssh/id_ed25519`)
+- **Enter passphrase**: press Enter to skip, or set one for extra security
+- **Enter same passphrase again**: press Enter (or repeat what you typed)
 
-+ Start the SSH-agent `eval "$(ssh-agent -s)"`
-+ Edit the **~/.ssh/config** file to automate loading keys into the SSH-agent. 
-```
-touch ~/.ssh/config # If the config file doesn't exist, create it
-vi ~/.ssh/config
+A "randomart image" will print after key generation. This is just a visual fingerprint of the key and doesn't need to be saved.
 
-Host *
-  AddKeysToAgent yes
-  IdentityFile ~/.ssh/github # added this line to the already existing config file
-  IdentityFile ~/.ssh/cluster
+#### Add the key to the SSH agent
+
 ```
-+ Add keys to the SSH agent
-```
-ssh-add ~/.ssh/github
 eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_ed25519
 ```
 
-If this setup is on a cluster, you may need to paste the two lines above in the **.bash_profile**.
+#### Add public SSH key to the GitHub account
 
-Ensure git configuration using ```git config -l``` in terminal (Mac) or git bash (Windows). If the username and email are not set, you can use the following to set them:
+- Copy the public key to your clipboard: `pbcopy < ~/.ssh/id_ed25519.pub` (Mac)
+- Log on to GitHub
+- Click on the profile photo on top-right, go to **Settings**, then **SSH and GPG keys**
+- Click **New SSH key**
+- Name the key in the *Title* box (e.g. your laptop model) and paste the public key into the *Key* box
+- Under **Key type**, select **Authentication Key** (default) — this is what's needed for clone/push/pull. **Signing Key** is a separate option used only to show commits as "Verified" on GitHub.
+- Click **Add SSH key**
+
+#### Test the SSH connection
 
 ```
-git config --global user.name your_github_username
-git config --global user.email email_used@service.com
+ssh -T git@github.com
 ```
 
-#### Add public SSH key to the Github account
-+ Logon to Github
-+ Click on the profile photo on top-right, go to **Settings** and then to **SSH and GPG keys**.
-+ Click on **New SSH key**, name the key in the *Title* box and copy the contents of the **.pub** public key in the *Key* box.
+The first time you connect, you'll see a host authenticity warning. Type <code>yes</code> to continue. You should then see:
 
-### Connect remote repository on GitHub and Rstudio
+```
+Hi your-username! You've successfully authenticated, but GitHub does not provide shell access.
+```
 
-1. Create a repository on Github or use an existing one to connect to Rstudio.   
-2. Open Rstudio. Go to **Tools > Global Options**, and click on the *Git/SVN section*. Fill in the git executable path and click *OK*.   
-3. Use the Code > SSH git link from Github repository to clone or create a project or repository locally.   
+### Connect remote repository on GitHub and RStudio
+
+- Create a repository on GitHub or use an existing one
+- Optional: (usually auto-detected once git is installed, otherwise) Open RStudio. Go to **Tools > Global Options**, click the *Git/SVN* section, and confirm the git executable path is filled in 
+- Clone the repo using its SSH URL (Code > SSH tab on the GitHub repo page):
+
+```
+git clone git@github.com:username/repo-name.git
+```
+
+- To get the **Git tab** to appear in RStudio's top-right panel, the cloned folder needs to be opened as an RStudio Project:
+   - If the folder contains an `.Rproj` file: **File > Open Project...** > select it
+   - If not: **File > New Project > Existing Directory** > browse to the cloned folder > **Create Project**
 
 For detailed steps checkout [GitHub Docs for connecting with SSH](https://docs.github.com/en/authentication/connecting-to-github-with-ssh).
 
+---
+
+### If you already have an existing SSH key
+
+If `ls -al ~/.ssh` shows an existing key pair, you likely don't need to generate a new one — just make sure it's loaded and registered. This is especially relevant on a shared or previously-used laptop, where an older <b>RSA</b> key pair (`id_rsa` / `id_rsa.pub`) may already exist from a prior setup, rather than the newer `id_ed25519` type generated in the steps above. Check the `.ssh` folder to see which filename(s) are present before proceeding — the steps below work the same either way, just substitute the correct filename.
+
+
+1. **Add the existing key to the ssh-agent:**
+```
+eval "$(ssh-agent -s)"
+ssh-add ~/.ssh/id_rsa
+```
+(use whichever private key filename is present — `id_rsa`, `id_ed25519`, or a custom name like `github`)
+
+2. **(Optional) Automate key loading across sessions** by creating/editing `~/.ssh/config`, especially useful if multiple key types/files exist:
+```
+touch ~/.ssh/config   # if it doesn't already exist
+```
+Add the following, listing each key you want auto-loaded:
+```
+Host *
+  AddKeysToAgent yes
+  IdentityFile ~/.ssh/id_rsa
+  IdentityFile ~/.ssh/id_ed25519
+  IdentityFile ~/.ssh/github
+```
+
+3. **Confirm the key is already on GitHub**: GitHub > Settings > SSH and GPG keys. If it's listed, you're done — just run `ssh -T git@github.com` to confirm the connection works. If it's not listed, copy the public key (`pbcopy < ~/.ssh/id_rsa.pub`, substituting the correct filename) and add it following the steps above.
+
+4. If working on a shared machine or cluster, the `eval` and `ssh-add` lines may need to be added to your `.bash_profile` so the key loads automatically on login.
