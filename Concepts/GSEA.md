@@ -27,7 +27,7 @@ Rather than asking whether individual genes are differentially expressed, GSEA a
 - Perform a gene-level analysis (differential expression, correlation)
 - Assign a ranking statistic to every gene (fold change, correlation)
 - Order genes from one biological direction to the other using the ranking statistic
-- Walk the ranked list from one end to other
+- Walk the ranked list from one end to the other
 - For a pre-defined geneset S, 
   - running sum goes UP when you hit a gene in the set S
   - and goes DOWN when the gene is not in the pre-defined geneset S
@@ -35,7 +35,7 @@ Rather than asking whether individual genes are differentially expressed, GSEA a
 - Normalize ES to obtain normalized ES (NES)
 - Permutation test using an appropriate null distribution of ES 
   - sample labels or gene labels
-- Caclculate nominal p-values and FDR q-value
+- Calculate nominal p-values and FDR q-value
   - multiple-testing correction
 - Identify leading-edge subset of genes which are responsible for the enrichment
 - Interpret the result in biological context
@@ -69,7 +69,7 @@ The ranked list should contain one score per unique gene. Duplicates can arise f
 
 For **one geneset S at a time**, GSEA walks from one end of the ranked list to the other (like say from the gene most associated with or highly expressed in condition A to most associated with or highly expressed in condition B).
 
-To understand what genesets are, please see the (geneset collections)[].
+To understand what genesets are, please see the [geneset collections](GeneSet_Collections.md).
 
 At each gene position:
 
@@ -174,7 +174,7 @@ The **Normalized Enrichment Score (NES)** corrects for this by scaling the ES re
 
 The sign depends on how the rank metric was defined. For `Disease` - `Control`, positive NES indicates enrichment toward genes higher in disease and a negative NES indicates enrichment toward genes higher in control, or lower in disease.
 
-If the contrast is reversed, the signs reverses. An enrichment plot without a clearly stated ranking direction can lead to bilogy being interpreted backward/in opposite direction.
+If the contrast is reversed, the sign reverses. An enrichment plot without a clearly stated ranking direction can lead to biology being interpreted backward/in opposite direction.
 
 ---
 
