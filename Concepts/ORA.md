@@ -146,9 +146,9 @@ Suppose:
 - 12 of the selected genes belong to that pathway
 
 Because 10% of the background genes belong to the pathway, we would expect approximately 5 pathway genes in a randomly selected list of 50 genes.
-$$
-50 \times \frac{100}{1000}=5
-$$
+
+$$50 \times \frac{100}{1000}=5$$
+
 The observed overlap is 12, compared with an expectation of about 5. ORA evaluates how likely it would be to observe an overlap of 12 or greater by chance.
 
 ---
@@ -162,9 +162,9 @@ The natural question becomes:
 > Is this overlap larger than we would expect simply by chance?
 
 If the row and column totals of the contingency table are treated as fixed, then the number of gene set members among the selected genes follows a **hypergeometric distribution**:
-$$
-P(K=k) = \frac{\binom{M}{k}\binom{N-M}{n-k}} {\binom{N}{n}}
-$$
+
+$$P(K=k)=\frac{\binom{M}{k}\binom{N-M}{n-k}}{\binom{N}{n}}$$
+
 where
 
 - N = number of genes in the background
@@ -173,8 +173,11 @@ where
 - K = number of selected genes belonging to the gene set
 
 For over-representation, we calculate the probability of observing **at least** the overlap that was observed:
-$$
-P(K\ge k_{obs}) = \sum_{j=k_{obs}}^{\min(M,n)} \frac{\binom{M}{j}\binom{N-M}{n-j}} {\binom{N}{n}}
+
+$$P(K\ge k_{obs})=\sum_{j=
+k_{obs}}^{\min(M,n)}
+\frac{\binom{M}{j}\binom{N-M}{n-j}}
+{\binom{N}{n}}
 $$
 In other words, the calculation asks:
 
