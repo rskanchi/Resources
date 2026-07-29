@@ -15,10 +15,10 @@ To understand what gene sets are and how different collections are organized, se
 ```
 - Perform gene-level analysis
 - Generate the list of relevant or outcome-associated genes   
-  - for example, FDR < 0.05 and |log2 fold change| > 1
+  - for example, `FDR < 0.05` and `|log2 fold change| > 1`
 - Define the background or gene universe
 - Choose the relevant gene set collection(s)
-- Build one 2 x 2 contingency table (discussed below) per gene set in a collection
+- Build one `2 x 2` contingency table (discussed below) per gene set in a collection
   - count how many selected genes belong to the gene set
   - compare the observed overlap with the overlap expected by chance
 - Apply Fisher's exact or hypergeometric test and compute a p-value
@@ -269,17 +269,13 @@ $$
 The enrichment ratio compares these two proportions
 
 $$
-\text{Enrichment ratio}=
-\frac{K/n}{M/N}
+\text{Enrichment ratio}=\frac{K/n}{M/N}
 $$
 
 This is equivalent to comparing the observed overlap with the expected overlap
 
 $$
-\text{Enrichment ratio}
-=
-\frac{\text{observed overlap}}
-{\text{expected overlap}}
+\text{Enrichment ratio}=\frac{\text{observed overlap}}{\text{expected overlap}}
 $$
 
 Using the example above, if the observed overlap is 12 genes and the expected overlap is 5 genes
@@ -297,7 +293,7 @@ The gene set is represented approximately 2.4 times more often in the selected l
 For ORA, the contributing genes are
 
 $$
-L\cap S,
+L\cap S
 $$
 
 where `L` is the selected list and `S` is the gene set.
@@ -393,5 +389,5 @@ GSEA:
 ## Related topics
 
 - [Gene Set Collections](GeneSet_Collections.md)
-- [Gene Set Enrichment Analysis](GSEA.md)
+- [Gene Set Enrichment Analysis, GSEA](GSEA.md)
 - Differential expression
