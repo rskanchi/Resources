@@ -101,17 +101,17 @@ It depends on the scientific question. An adjusted p-value threshold prioritizes
 
 Suppose that
 
-- N = genes form the background or gene universe
-- M = of those genes belong to one gene set
-- n = genes were selected as significant
-- k = significant genes belong to that gene set
+- $N =$ genes form the background or gene universe
+- $M =$ of those genes belong to one gene set
+- $N =$ genes were selected as significant
+- $K =$ significant genes belong to that gene set
 
 The information forms a $$\(2\times2\)$$ table:
 
 | | In the gene set | Not in the gene set | Total |
 |---|---:|---:|---:|
 | Significant genes | k | n-k | n |
-| Other tested genes | M-k | N-M-n+k | N-n |
+| Other tested genes | M-k | N-M-\(n-k\) | N-n |
 | Total | M | N-M | N |
 
 Every gene set in a gene set collection produces its own table (which forms the statistical basis for enrichment in software used for this analysis).
@@ -167,10 +167,10 @@ $$P(K=k)=\frac{\binom{M}{k}\binom{N-M}{n-k}}{\binom{N}{n}}$$
 
 where
 
-- N = number of genes in the background
-- M = number of background genes belonging to the gene set
-- n = number of selected genes
-- K = number of selected genes belonging to the gene set
+- $N =$ number of genes in the background
+- $M =$ number of background genes belonging to the gene set
+- $N =$ number of selected genes
+- $K =$ number of selected genes belonging to the gene set
 
 For over-representation, we calculate the probability of observing **at least** the overlap that was observed:
 
@@ -179,6 +179,7 @@ k_{obs}}^{\min(M,n)}
 \frac{\binom{M}{j}\binom{N-M}{n-j}}
 {\binom{N}{n}}
 $$
+
 In other words, the calculation asks:
 
 > **If I randomly selected `n` genes from the background, how often would I obtain at least this many genes from the gene set?**
@@ -195,7 +196,7 @@ The expected proportion of genes from a set is
 
 $$
 \frac{M}{N}
-\]
+$$
 
 If the universe changes, both `M` and `N` may change. So, the same selected DEG list can produce a different p-value under a different background.
 
@@ -245,8 +246,8 @@ $$
 
 where
 
-- k = number of selected genes in the gene set
-- n = total number of selected genes
+- $K =$ number of selected genes in the gene set
+- $N =$ total number of selected genes
 
 They may also report the proportion of background genes that belong to the gene set
 
@@ -256,22 +257,21 @@ $$
 
 where
 
-- M = number of genes in the gene set that are present in the background
-- N = total number of genes in the background
+- $M =$ number of genes in the gene set that are present in the background
+- $N =$ total number of genes in the background
 
 A gene set is over-represented when it occupies a larger fraction of the selected list than of the background
 
 $$
 \frac{K}{n}>\frac{M}{N}
-\]
+$$
 
 The enrichment ratio compares these two proportions
 
 $$
-\text{Enrichment ratio}
-=
+\text{Enrichment ratio}=
 \frac{K/n}{M/N}
-\]
+$$
 
 This is equivalent to comparing the observed overlap with the expected overlap
 
@@ -280,13 +280,13 @@ $$
 =
 \frac{\text{observed overlap}}
 {\text{expected overlap}}
-\]
+$$
 
 Using the example above, if the observed overlap is 12 genes and the expected overlap is 5 genes
 
 $$
 \frac{12}{5}=2.4
-\]
+$$
 
 The gene set is represented approximately 2.4 times more often in the selected list than expected under random selection. The enrichment ratio describes the size of the over-representation. The p-value describes how surprising the observed overlap is under the null hypothesis. These quantities help explain the result, but they do not replace the statistical test. They should also be interpreted alongside the actual number of overlapping genes.
 
@@ -298,9 +298,9 @@ For ORA, the contributing genes are
 
 $$
 L\cap S,
-\]
+$$
 
-where \(L\) is the selected list and \(S\) is the gene set.
+where `L` is the selected list and `S` is the gene set.
 
 The pathway label begins the interpretation. But it's important to ask questions such as
 
@@ -382,7 +382,7 @@ GSEA:
 - ORA requires both a selected gene list and an appropriate background
 - The universe should contain genes that had a reasonable opportunity to be selected
 - ORA results depend on the threshold used to define the selected list
-- It is based on a \(2\times2\) table and Fisher's exact or hypergeometric testing
+- It is based on a $$\(2\times2\)$$ table and Fisher's exact or hypergeometric testing
 - Separate UP and DOWN analyses could be more informative
 - An enriched gene set does not prove pathway activation or causality
 - Contributing genes should be inspected before biological claims are made
