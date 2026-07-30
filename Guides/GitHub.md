@@ -72,6 +72,13 @@ Example Workflow (Using `git pull`)
 
 ## Detours, specific issues
 
+### Pull a remote repo on to a new laptop/computer
+
+- `cd ~/github`. 
+- Copy the repo's SSH url from the remote. Repo page > green **Code** button > SSH tab. Looks like `git@github.com:<your_username>/<repo-name>.git`.  
+- git clone git@github.com:<your_username>/<repo-name>.git
+- If the folder doesn't have an `.Rproj` file, create it so that the `Git` tab in the Rstudio top-right corner appears.  
+
 ### If a file type is in `.gitignore` but you want to commit it
 If you have a file type in your `.gitignore` but you want to commit it, you can use the `-f` (force) option with `git add`; followed by the commit and push commands as usual.  
 ```
