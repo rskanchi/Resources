@@ -22,9 +22,7 @@ If batch effects are not accounted for, samples may cluster by technical variabl
 
 ## How do I know whether batch correction is needed?
 
-A common first step is to visualize the samples using Principal Component Analysis (PCA).
-
-Generate PCA plots and color the samples by:
+A typical first step is to visualize the samples using Principal Component Analysis (PCA). Generate PCA plots and color the samples by:
 
 * Batch
 * Sequencing run
@@ -41,9 +39,7 @@ If samples cluster primarily by a technical variable rather than a biological va
 
 ## How do I know whether batch correction worked?
 
-Compare PCA plots before and after correction.
-
-A successful batch correction generally shows:
+Compare PCA plots before and after correction. A successful batch correction generally shows:
 
 * Reduced clustering by the batch variable
 * Preservation of biological separation
@@ -70,8 +66,6 @@ Normalization should generally be performed before considering batch correction.
 
 ## Should I perform PCA on raw counts?
 
-Generally, no.
-
 Raw RNA-seq counts have a strong mean-variance relationship, meaning highly expressed genes dominate the variance. As a result, PCA performed directly on raw counts can be difficult to interpret.
 
 Instead, PCA is typically performed on transformed data, such as:
@@ -88,12 +82,7 @@ These transformations stabilize the variance across genes, making distances betw
 
 RNA-seq counts are heteroscedastic, meaning genes with larger counts also tend to have larger variances.
 
-The variance stabilizing transformation (VST) reduces this dependence between the mean and the variance, producing expression values that are more appropriate for:
-
-* PCA
-* Clustering
-* Heatmaps
-* Distance calculations
+The variance stabilizing transformation (VST) reduces this dependence between the mean and the variance, producing expression values that are more appropriate for PCA, clustering, heatmaps, distance calculations.
 
 VST is intended for visualization and exploratory analyses, and not for differential expression testing.
 
@@ -162,29 +151,19 @@ Unlike the original ComBat, ComBat-seq operates directly on raw count data.
 
 ### limma::removeBatchEffect()
 
-`removeBatchEffect()` removes batch effects using a linear model.
+`removeBatchEffect()` removes batch effects using a linear model. It is commonly used for visualization after normalization or transformation.
 
-It is commonly used for visualization after normalization or transformation.
+Typical applications include PCA, heatmaps, clustering.
 
-Typical applications include:
-
-* PCA
-* Heatmaps
-* Clustering
-
-For differential expression analyses using limma, edgeR, or DESeq2, it is usually preferable to include batch directly in the statistical model rather than modifying the expression matrix beforehand.
+For differential expression analyses using limma, edgeR, or DESeq2, it is usually preferable to include `batch` directly in the statistical model rather than modifying the expression matrix beforehand.
 
 ---
 
 ## Why shouldn't I batch-correct before differential expression analysis?
 
-Usually, **no**.
+For differential expression, the preferred approach is to analyze the **original count data** while including batch as a covariate in the statistical model.
 
-For differential expression (DE), the preferred approach is to analyze the **original count data** while including batch as a covariate in the statistical model.
-
-For example, `design = ~ batch + condition` allows the model to estimate the effect of the biological condition while accounting for unwanted technical variation due to batch.
-
-In other words, the model adjusts for batch **during statistical inference**, without modifying the original counts.
+For example, `design = ~ batch + condition` allows the model to estimate the effect of the biological condition while accounting for unwanted technical variation due to batch. The model adjusts for batch **during statistical inference**, without modifying the original counts.
 
 ### Then why perform batch correction?
 
@@ -207,15 +186,9 @@ This distinction explains why both approaches are commonly used within the same 
 
 ## Can batch correction remove real biology?
 
-Yes, batch correction can remove real biology.
+Yes, batch correction can remove real biology. Batch correction should only be applied to variables representing unwanted technical variation. If the corrected variable is biologically meaningful, true biological signal may be removed.
 
-Batch correction should only be applied to variables representing unwanted technical variation.
-
-If the corrected variable is biologically meaningful, true biological signal may be removed.
-
-Similarly, if all cases were processed in one batch and all controls in another, batch correction cannot reliably distinguish technical effects from biological effects.
-
-This situation is known as **confounding**, and no statistical method can completely recover the true biological signal.
+Similarly, if all cases were processed in one batch and all controls in another, batch correction can't distinguish technical effects from biological effects. This situation is known as **confounding**, and no statistical method can completely recover the true biological signal.
 
 ---
 
