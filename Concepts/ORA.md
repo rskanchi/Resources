@@ -15,10 +15,10 @@ To understand what gene sets are and how different collections are organized, se
 ```
 - Perform gene-level analysis
 - Generate the list of relevant or outcome-associated genes   
-  - for example, `FDR < 0.05` and `|log2 fold change| > 1`
+  - for example, FDR < 0.05 and |log2 fold change| > 1
 - Define the background or gene universe
 - Choose the relevant gene set collection(s)
-- Build one `2 x 2` contingency table (discussed below) per gene set in a collection
+- Build one 2 x 2 contingency table (discussed below) per gene set in a collection
   - count how many selected genes belong to the gene set
   - compare the observed overlap with the overlap expected by chance
 - Apply Fisher's exact or hypergeometric test and compute a p-value
@@ -136,7 +136,7 @@ The one-sided alternative is that the gene set is over-represented.
 
 ---
 
-## What does “expected by chance” mean?
+## What does *expected by chance* mean?
 
 Suppose:
 
@@ -378,7 +378,7 @@ GSEA:
 - ORA requires both a selected gene list and an appropriate background
 - The universe should contain genes that had a reasonable opportunity to be selected
 - ORA results depend on the threshold used to define the selected list
-- It is based on a $$\(2\times2\)$$ table and Fisher's exact or hypergeometric testing
+- It is based on a 2 x 2 table and Fisher's exact or hypergeometric testing
 - Separate UP and DOWN analyses could be more informative
 - An enriched gene set does not prove pathway activation or causality
 - Contributing genes should be inspected before biological claims are made

@@ -24,7 +24,7 @@ A gene set is a group of genes connected by a defined biological, functional, re
 
 Not always; a [biological pathway](https://www.genome.gov/about-genomics/fact-sheets/Biological-Pathways-Fact-Sheet) usually describes a series of actions in a cell (an organized biological mechanism) that results in the formation of a new product or a change in that cell. 
 
-A gene set is simply a collection of genes with a defined relationship. It can be researcher-defined! Some examples of genesets to say it is broader in context:
+A gene set is simply a collection of genes with a defined relationship. It can be researcher-defined! Some examples of gene sets to say it is broader in context:
 
 - a Reactome pathway can be represented as a gene set
 - GO Biological Process term
@@ -71,7 +71,7 @@ These collections have different number of gene sets and answer different biolog
 
 ---
 
-## Hallmark, GO, KEGG, ... : why are there so many?
+## Hallmark, GO, KEGG, ... why are there so many?
 
 Because biological knowledge can be organized at different levels.
 
