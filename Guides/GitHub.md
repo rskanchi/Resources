@@ -347,6 +347,13 @@ Already have a repo and would like to create another; then, any updates committe
   git push origin main
   git push team main
   ```
+  
+Commands that might be useful in this situation:
+
+- `git branch -vv`: Shows local brnaches and which remote branch each is tracking (like [origin/main] or [team/main]). Rstudio Git button (top-right on Rstudio) pushes to whatever your current branch is tracking.  
+
+- `git log --oneline -5 --decorate`: The `--decorate` shows which remotes' branches point at which commits to understand where exactly your latest commit currently lives.
+
 
 # Github issues
 Issues are a great way to track tasks, discussions, and any feature enhancements in a repository.
