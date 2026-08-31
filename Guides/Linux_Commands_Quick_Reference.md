@@ -7,6 +7,9 @@
 - `ls -l`: Long listing format with file details.
 - `ls -a`: Show hidden files.
 - `ls -lh`: Long listing format with human-readable file sizes.
+- `ls -1 . | wc -l`: 
+    - `ls -1` includes the number one. It tells ls to print one filename per line (instead of columns).  
+    - `wc -l` includes the lowercase letter L to count lines instead of words or characters using the word count (wc) utility.  
 
 ### symbolik links
 - `ln -s /path/to/original /path/to/link`: Create a symbolic link to a file or directory.  
