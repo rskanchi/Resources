@@ -147,6 +147,20 @@ git restore --staged path/to/file
 git restore --staged . # to unstage all files  
 ```
 
+### Want local to match remote   
+When you don't want to preserve local untracked files that conflict with the remote, you could reset to the remote branch and remove untracked files.
+
+Before deleting untracked files using `git clean -fd`, you can check which files will be deleted using `git clean -fdn`. The `-n` flag shows what would be deleted without actually deleting them.
+
+```
+git fetch origin                  # gets the latest remote state
+git reset --hard origin/master    # makes all tracked files exactly match the remote
+git clean -fd                     # removes untracked files and directories
+```
+
+
+
+
 ### Renaming files (or folders) Locally and Remotely
 
 This section describes how to rename a file within your GitHub repository, ensuring the change is reflected in both your local and remote repositories.
