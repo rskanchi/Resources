@@ -1,375 +1,797 @@
+# Git & GitHub Notes
 
-### Frequently used git commands
+Practical Git/GitHub notes for day-to-day work in RStudio and the
+terminal. These examples are intentionally situation-based so that I can
+remember *why* I used a command, not just the syntax.
 
-Must know this!  
-```
-git add xx
-git commit -m "comment"
+> **General rule:** Before a command that resets, removes, cleans,
+> rewrites history, or force-pushes, run `git status` and make sure I
+> understand what will change.
+
+------------------------------------------------------------------------
+
+## Everyday workflow
+
+### Frequently used commands
+
+``` bash
+git status
+git add <file1> <file2>
+git commit -m "commit message"
 git push origin main
 ```
 
-# Update your local Git repository from changes made on the remote (by others on team)
+I usually prefer staging specific files rather than `git add .`,
+especially in repositories containing multiple projects.
 
-## 1. Fetching changes
+### Check whether local and remote are in sync
 
-The `git fetch` command downloads the latest changes from the remote repository without merging them into your local branches.
+First update my local knowledge of the remote:
 
-- Open your (Rstudio) terminal or Git Bash.
-- Navigate to your local repository directory.
-- Execute the following command: `git fetch origin`
-    - `git fetch`: Retrieves the latest changes.
-    - `origin`: The default name for your remote repository (usually your GitHub repo).
-
-## 2. Merging or Rebasing changes
-
-After fetching the changes, you have two options: merging or rebasing.
-
-### Merging (Recommended but may prompt a Warning)
-
-Merging takes the changes from the remote branch and creates a new commit on your local branch that merges them with your uncommitted local work; like a new "merge commit" that combines your local changes with the remote changes.
-
-- Ensure you are on the branch you want to update (e.g., `main`).
-- Execute one of the following commands:
-  - `git merge origin/main` (If you have already done a fetch)
-  - `git pull origin main` (This combines fetch and merge into one command) - **Note:** This command might show 
-      a warning about how to reconcile divergent branches. To be explicit, you can use:  
-    - `git pull --no-rebase origin main` (Explicitly performs a merge)
-  - Replace `main` with the appropriate branch name if you're working on a different branch.
-
-**Understanding the `git pull` Warning:**
-
-Git often suggests being explicit about how to handle divergent branches when using `git pull` without specifying `--rebase` or `--no-rebase`. This is to ensure you understand whether you want to merge (the default) or rebase. Using `--no-rebase` explicitly tells Git you want to perform a merge, which is the default behavior if no option is specified.
-
-### Rebasing 
-
-Rebasing takes your local changes and temporarily moves them aside. It then updates your local branch with the latest changes from the remote. Finally, it puts your local edits back on top of those new changes. This makes it look like your work happened *after* the remote work.
-
-- Ensure you are on the branch you want to update.
-- Execute the following command: `git rebase origin/main`
-- Replace `main` with the appropriate branch name if needed.
-
-## 3. Resolving conflicts
-
-If Git detects conflicts (changes to the same lines of code), it will mark the conflicting files.
-
-- Open the conflicting files in your editor and manually resolve the differences.
-- After resolving each conflict, use `git add <conflicted_file>`
-- Once all conflicts are resolved, continue the merge or rebase:   
-    - For merge: `git commit` (Git will automatically create a merge commit message).
-    - For rebase: `git rebase --continue`.
-
-Example Workflow (Using `git pull`)
-    - `git fetch origin` (Optional, if you want to see the changes before merging)
-    - `git pull origin main` (or the branch you want to update)
-    - Resolve any conflicts  
-
-- **Branch:** Make sure you're on the correct branch before running `git merge` or `git rebase`.
-- **Stash changes:** If you have uncommitted changes, use `git stash` to save them temporarily and `git stash pop` to reapply them later.
-  - `git stash list` lists all stashed changes   
-  - `git stash drop` deletes most recent stash from the stash history   
-  - `git stash clear` deletes all stashes from the stash history   
-  
-
-## Detours, specific issues
-
-### Pull a remote repo on to a new laptop/computer
-
-- `cd ~/github`. 
-- Copy the repo's SSH url from the remote. Repo page > green **Code** button > SSH tab. Looks like `git@github.com:<your_username>/<repo-name>.git`.  
-- git clone git@github.com:<your_username>/<repo-name>.git
-- If the folder doesn't have an `.Rproj` file, create it so that the `Git` tab in the Rstudio top-right corner appears.  
-
-### If a file type is in `.gitignore` but you want to commit it
-If you have a file type in your `.gitignore` but you want to commit it, you can use the `-f` (force) option with `git add`; followed by the commit and push commands as usual.  
+``` bash
+git fetch origin
+git status
 ```
+
+If Git says:
+
+``` text
+Your branch is up to date with 'origin/main'.
+```
+
+the committed history of local `main` and `origin/main` is in sync.
+Untracked files may still exist locally; they are not part of Git
+history until added.
+
+To see commits present on the remote but not locally:
+
+``` bash
+git log --oneline HEAD..origin/main
+```
+
+To see which files changed remotely:
+
+``` bash
+git diff --name-status HEAD..origin/main
+```
+
+Common status letters:
+
+``` text
+A   added
+M   modified
+D   deleted
+```
+
+To inspect the actual changes:
+
+``` bash
+git diff HEAD..origin/main
+```
+
+For one file:
+
+``` bash
+git diff HEAD..origin/main -- path/to/file
+```
+
+------------------------------------------------------------------------
+
+## Updating the local repository from remote changes
+
+### Fetch first when I want to inspect before changing anything
+
+``` bash
+git fetch origin
+```
+
+`git fetch` downloads information about the latest remote commits but
+does **not** modify my working files or merge anything.
+
+This is useful when someone else has pushed changes and I want to see
+what changed before pulling.
+
+### Pull remote changes
+
+If I have no local commits that need to be replayed:
+
+``` bash
+git pull origin main
+```
+
+This fetches and integrates the remote changes.
+
+If I have made and committed local changes and want them replayed on top
+of the latest remote work:
+
+``` bash
+git pull --rebase origin main
+```
+
+A rebase works with **commits**. If I still have uncommitted changes,
+Git may refuse to start the rebase. In that case I can commit the work
+first or stash it temporarily.
+
+### Merge versus rebase
+
+**Merge**
+
+``` bash
+git pull --no-rebase origin main
+```
+
+or, after a fetch:
+
+``` bash
+git merge origin/main
+```
+
+A merge combines divergent committed histories. If both local and remote
+contain new commits, Git may create a merge commit.
+
+**Rebase**
+
+``` bash
+git pull --rebase origin main
+```
+
+or, after a fetch:
+
+``` bash
+git rebase origin/main
+```
+
+A rebase moves my local commits so that they appear after the current
+remote commits, producing a more linear history.
+
+### If I have uncommitted work
+
+One option is to stash it temporarily:
+
+``` bash
+git stash
+git pull --rebase origin main
+git stash pop
+```
+
+Useful stash commands:
+
+``` bash
+git stash list
+git stash drop
+git stash clear
+```
+
+`git stash clear` deletes all stashes, so use it only when they are no
+longer needed.
+
+### Resolve conflicts
+
+If Git reports a conflict:
+
+1.  Open the conflicting file(s) and resolve the marked sections.
+2.  Stage each resolved file:
+
+``` bash
+git add <conflicted_file>
+```
+
+3.  Continue:
+
+For a rebase:
+
+``` bash
+git rebase --continue
+```
+
+For a merge, after resolving and staging all conflicts:
+
+``` bash
+git commit
+```
+
+------------------------------------------------------------------------
+
+## Staging and unstaging files
+
+### Stage specific files
+
+``` bash
+git add path/to/file1 path/to/file2
+```
+
+Staging a specific file does **not** unstage files that were already
+staged. Before committing, check:
+
+``` bash
+git status
+```
+
+Everything listed under **Changes to be committed** will be included in
+the commit.
+
+### Unstage one file
+
+``` bash
+git restore --staged path/to/file
+```
+
+This removes the file from the staging area but keeps the changes in the
+working file.
+
+### Unstage an entire folder
+
+Useful when many files in one project folder are checked in the RStudio
+Git pane:
+
+``` bash
+git restore --staged path/to/project_folder/
+```
+
+### Unstage everything
+
+``` bash
+git restore --staged .
+```
+
+An older equivalent is:
+
+``` bash
+git reset HEAD
+```
+
+These commands unstage changes; they do not discard the edits in the
+working files.
+
+### Discard local edits to a tracked file
+
+If I do **not** want my local changes and want the file restored to the
+current committed (`HEAD`) version:
+
+``` bash
+git restore path/to/file
+```
+
+For all tracked files:
+
+``` bash
+git restore .
+```
+
+This is different from `git restore --staged`: without `--staged`, the
+working-file edits are discarded.
+
+------------------------------------------------------------------------
+
+## `.gitignore` and tracking
+
+### Ignore files or folders anywhere in the repository
+
+Examples:
+
+``` gitignore
+*.docx
+*.png
+**/data/
+**/output/
+```
+
+`**/data/` and `**/output/` ignore directories with those names at any
+depth below the repository root.
+
+### Check why a file is ignored
+
+``` bash
+git check-ignore -v path/to/file
+```
+
+This reports the `.gitignore` rule responsible for ignoring the file.
+
+### Important: `.gitignore` does not stop tracking files already tracked
+
+If a file was previously added/committed, adding it to `.gitignore` does
+not automatically make Git forget it.
+
+To stop tracking one file while keeping the local copy:
+
+``` bash
+git rm --cached path/to/file
+git commit -m "Stop tracking file"
+git push origin main
+```
+
+For a file pattern, for example `.docx` files:
+
+``` bash
+git rm --cached '*.docx'
+```
+
+Quoting the pattern allows Git to evaluate it rather than the shell.
+
+### Reapply `.gitignore` rules to the whole repository
+
+Use this only when I intentionally want Git's tracked set to be rebuilt
+according to the current `.gitignore`.
+
+``` bash
+git rm -r --cached .
+git add .
+git status
+git commit -m "Apply updated gitignore rules"
+git push origin main
+```
+
+**Important:** Inspect `git status` before committing. The `git add .`
+step is essential here: it re-adds files that are *not* ignored.
+
+### `.gitignore` changed after files were already staged
+
+Changing `.gitignore` does not automatically change what is already in
+the staging area.
+
+Unstage first:
+
+``` bash
+git restore --staged .
+```
+
+Then stage the intended files again.
+
+### Commit a file even though it is ignored
+
+For a one-time exception:
+
+``` bash
 git add -f path/to/file
 ```
 
-### Check remote URL path (SSH path)   
-```
-git remote -v   
-```
-If remote URL is incorrect, update it using   
-```
-git remote set-url origin git@github.com:your_username/your_repo_name.git   
+Alternatively, create an exception in `.gitignore`:
+
+``` gitignore
+*.png
+!path/to/file.png
 ```
 
-### Clear git cache for tracked files
+Note: negation rules can be affected by ignored parent directories. If
+the parent directory itself is excluded, Git may need additional
+negation rules for the parent path.
 
-If you have added files to `.gitignore` but they are still being tracked by git, you can clear the cache for all files in the repository. 
-This will remove all files from the staging area, allowing you to re-add them according to your updated `.gitignore` rules.  
-```
-git rm -r --cached .
-```
+------------------------------------------------------------------------
 
-### Your branch is ahead of 'origin/main' by n commits
+## Clone a repository onto a new computer
 
-Check local commits using ```git log origin/main..HEAD``` 
-Reset last few commits, say 4 using ```git reset --soft HEAD~4```
-The staging area should have the files you expect.
+Go to the directory where I keep GitHub repositories:
 
-### Remove deleted files from tracking 
-
-Stage only modified and deleted files:  `git add -u`   
-
-Commit and push to remote:  
-```
-git commit -m "remove D files from tracking"   
-git push origin main   
-```   
-
-### Stop tracking files that were once tracked
-
-Suppose you added .docx to .gitignore file. If they are still showing in the staging area, 
-then they are being tracked by git; likely because they were committed at least once before the .docx was added to .gitignore.  
-
-To fix this situation, stop tracking these files while still keeping them on local machine.  
-```
-git rm --cached *.docx
-git commit -m "stop tracking .docx"  
-git push origin main   
+``` bash
+cd ~/github
 ```
 
-To remove all ignored files from git's tracking at once, to match with .gitignore:  
-```
-git rm --cached -r .  
-git commit -m "rm previously tracked, now ignored files"  
-git push origin main  
-```
+On GitHub, open the repository → **Code** → **SSH**, then copy the SSH
+URL:
 
-### You git added a file but want to pull it back from the staging area
-
-The commands below can also be used when you previously committed a file and then locally made some changes to it; 
-but want the committed version of the file to be in the local directory instead of the modified version.  
-
-```
-git restore --staged path/to/file  
-git restore --staged . # to unstage all files  
+``` text
+git@github.com:<username>/<repo-name>.git
 ```
 
-### Want local to match remote   
-When you don't want to preserve local untracked files that conflict with the remote, you could reset to the remote branch and remove untracked files.
+Clone:
 
-Before deleting untracked files using `git clean -fd`, you can check which files will be deleted using `git clean -fdn`. The `-n` flag shows what would be deleted without actually deleting them.
-
-```
-git fetch origin                  # gets the latest remote state
-git reset --hard origin/master    # makes all tracked files exactly match the remote
-git clean -fd                     # removes untracked files and directories
+``` bash
+git clone git@github.com:<username>/<repo-name>.git
 ```
 
+If I want to work with it as an RStudio Project and there is no `.Rproj`
+file, create/open an RStudio Project in that directory.
 
+------------------------------------------------------------------------
 
+## Remotes and repository connections
 
-### Renaming files (or folders) Locally and Remotely
+### Check remote URLs
 
-This section describes how to rename a file within your GitHub repository, ensuring the change is reflected in both your local and remote repositories.
--  **Rename the File Locally:**  
-    - Use the `git mv` command to rename the file. This command handles both the file rename and staging the change for commit.  
-    - If the file is in the root directory of your repository, use:  
-      ```
-      git mv old_filename new_filename
-      ```
-    - If the file is in a subdirectory, provide the appropriate path:  
-        ```
-        git mv folder/old_filename folder/new_filename
-        ```
-- Use the `git mv` command to rename folders too:``` git mv old/folder new/folder ```
-
-
--  **Commit and Push the Changes to the Remote Repository:**
-    - Commit the file rename with a descriptive commit message:
-        ```
-        git commit -m "Rename old_filename to new_filename"
-        git push origin <branch_name>
-        ```
-    - If you are on your main branch it is usually:
-        ```
-        git push origin main
-        ```
-
-### Selective File Removal After Commit
-
-To remove specific files from a previous commit, while retaining other files from that same commit, on your remote repository. 
-This is useful when you've committed multiple files together but later decide that certain files should not be included in the remote.
-
-**Scenario:**
-
-You committed three files (file1, file2, file3) with a single commit message. However, you now want to remove file3 from the remote repository while keeping file1 and file2.
-
--  **Identify the Parent Commit:**
-    * Use `git log --oneline` to view the commit history.
-    * Identify the commit hash of the commit *before* the commit that added the three files.
-    * Example Output:
-    
-        ```
-        14a7b96 (HEAD -> main, origin/main) Add file1, file2, file3
-        6ce8e82 re-filtering ...
-        d9bca5d feature counts ...
-        ```
-    * In this case, the parent commit hash *before* the three files were committed is `6ce8e82`.
-
--  **Reset to the Parent Commit:**
-    * Reset your local branch to the parent commit:
-    
-        ```
-        git reset <parent_commit_hash>
-        ```
-        * Example: `git reset 6ce8e82`
-    * This removes the commit with all three files from your branch's history and keeps the files in your working directory as unstaged changes.  
-    * Note that the remote repository will still reflect the changes you committed.  
-    * At this point, if you don't want to add the desired files, you can `git reset` and `git push --force-with-lease origin main`.  Otherwise, proceed to add the desired file(s).
-
--  **Stage and Commit the Desired Files:**
-    * Stage the files you want to keep (file1 and file2):
-    
-        ```
-        git add <file1> <file2>
-        ```
-    * Commit these files with a new commit message:
-    
-        ```
-        git commit -m "Add file1 and file2 (excluding file3)"
-        ```
-
--  **Delete the Unwanted File Locally:**
-    * Since file3 is now untracked, delete it using `rm`. I sometimes add the file types to .gitignore when I don't wish to delete the file.
-
--  **Force Push the Changes:**
-    * Because you've rewritten git history, you need to force push the local branch to the remote
-    
-        ```
-        git push --force-with-lease origin main
-        ```
-        * **Important:** Force pushing overwrites the remote branch's history. Only use this if you are sure you know what you are doing. 
-        If other people are working on the same branch, this can cause significant issues.
-        * If using an older version of git: `git push -f origin main`
-
-### Commit a specific file type when it's in the repo's gitignore list
-
-I have the *.png* file type in my `.gitignore` file. But I want to commit a specific *.png* file. In this situation, just add the file as a "negation"
-in `.gitignore`.
-
-```!<path/to/png/file/wrt/repoHEAD/filename.png>```
-
-### Reset the staging area to the last commit
-
-```git reset HEAD``` will unstage all changes currently in the staging area.   
-
-This command is also useful for me when I delete a folder from GitHub repo to a non-GitHub folder, and still see the files being tracked
-even when the folder/files were not previously committed. It acts as a *refresh* button!    
-
-### Reset after modifying `.gitignore`
-
-When trying to add, commit and push a folder, I noticed using `git status` that a few files were missing because of the way `.gitignore` is set up. 
-I modified the `.gitignore` to include the file types (because that's what I wanted to do for this specific repo; not force push the files). 
-Modifying `.gitignore` doesn't automatically modify the staging area. You need to `git reset <path/to/file/or/folder>` or `git reset` 
-to unstage everything. Then `git add <path/to/file/or/folder>` and `commit` and `push`.   
-
-### Move a subfolder out of a repo and make it its own repo
-
-Folder structure: github > Rshiny > Vennify.    
-`Vennify` subfolder is in `Rshiny`; with the following `Vennify` will be filtered along with the commit history, `github` will be renamed to `Vennify`. 
-
-In a different folder, clone `Rshiny`: `git clone https://github.com/yourusername/Rshiny.git`    
-If not already available, install the tool `git-filter-repo` using   
-- `brew install git-filter-repo` if using macOS with Homebrew   
-- `python3 -m pip install --user git-filter-repo` if no homebrew    
-
-At the `Rshiny`terminal, `git filter-repo --subdirectory-filter Vennify`, if needed, use `--force` in the end   
-Move one directory up and `mv Rshiny Vennify`       
-At the `Vennify` terminal, 
-
-```
-git remote remove origin
-git remote add origin https://github.com/username/Vennify.git
-git push -u origin main
+``` bash
+git remote -v
 ```
 
-### Git Branching & Pull Requests
+### Change the `origin` URL
 
-In collaborative research, a clean and reliable codebase is essential and teams create a workflow to ensure new features or bug fixes are thoroughly reviewed and tested before being added to the main branch (stable pipeline). A branch is a separate, isolated copy of code. Any changes on the branch do not affect the main code (prevents functional version's code-breaking), keeping it clean and safe. A pull request (PR) is created to propose merging the new branch into the main branch. It's not a command. It serves as a platform for discussion, code review, and approval. 
-
-Create a new branch and automatically switch to it: `git checkout -b feature/methods_v2`   
-
-Stage changes and commit them on the new branch: 
-
+``` bash
+git remote set-url origin git@github.com:<username>/<repo-name>.git
 ```
-git add .
-git commit -m "ver2 - added lasso, ridge, elasticnet, gbm"
+
+### Check branch tracking
+
+``` bash
+git branch -vv
+```
+
+A branch tracking the remote should look approximately like:
+
+``` text
+* main 123abc [origin/main] Commit message
+```
+
+If `main` is not tracking `origin/main`:
+
+``` bash
+git branch --set-upstream-to=origin/main main
+```
+
+------------------------------------------------------------------------
+
+## Renaming files, folders, and repositories
+
+### Rename a file
+
+``` bash
+git mv old_filename new_filename
+git commit -m "Rename file"
+git push origin main
+```
+
+For a file in a subdirectory:
+
+``` bash
+git mv folder/old_filename folder/new_filename
+```
+
+### Rename a folder
+
+``` bash
+git mv old/folder new/folder
+```
+
+Then commit and push.
+
+### Rename a GitHub repository
+
+1.  On GitHub: **Settings → General → Repository name → Rename**.
+2.  Update the local remote URL:
+
+``` bash
+git remote set-url origin git@github.com:<username>/<new-repo-name>.git
+```
+
+3.  Optionally rename the local directory from one level above it:
+
+``` bash
+mv <old-repo-name> <new-repo-name>
+```
+
+Renaming the local folder is for organization; Git itself does not
+require the local directory name to match the remote repository name.
+
+------------------------------------------------------------------------
+
+## Branches and pull requests
+
+In collaborative work, a branch allows development without immediately
+changing the stable `main` branch. A pull request (PR) is a GitHub
+collaboration/review mechanism for proposing that branch's changes be
+merged into another branch.
+
+### Create and switch to a new branch
+
+Modern syntax:
+
+``` bash
+git switch -c feature/methods_v2
+```
+
+Older equivalent:
+
+``` bash
+git checkout -b feature/methods_v2
+```
+
+### Commit work on the branch
+
+Prefer staging the intended files explicitly:
+
+``` bash
+git add path/to/file1 path/to/file2
+git status
+git commit -m "Add lasso, ridge, elastic net, and GBM methods"
 git push --set-upstream origin feature/methods_v2
 ```
 
-After the git push command, go to the remote repository on GitHub. Find the message at the top of the repo page about the new branch that was just pushed. Create a Pull Request (click on the button leading to `compare` and `pull request`) to start the peer-review process and formally invite team members to review the code before it is merged into the main branch. This action takes you to a new screen where you can write a title and description for your changes, tag your colleagues for review, see the exact differences between your new branch and the main branch, etc.
+Then go to GitHub and create a pull request. The PR page can show the
+differences from `main`, provide a description, request reviewers, and
+support discussion before merging.
 
-Note that the local terminal is for managing local code and interacting with remote repository (commit changes and push them to the remote). GitHub's website/remote is the collaboration platform.
+**Mental model:** the terminal manages Git history and communicates with
+the remote; GitHub provides the hosted repository plus collaboration
+features such as PRs, issues, and reviews.
 
-### Rename a repository
+------------------------------------------------------------------------
 
-- Remote name: On GitHub, rename the repo under Settings > General > Repository name > Rename.   
-This also sets up the redirect link in case you've shared the old repo link with someone.  
-- Update local repo name: In the local repo folder (path/to/repo), execute the command below. Find the SSH repo link under `<>Code`:  
-`git remote set-url origin https://github.com/<username>/<new_repo_name>.git`    
-- Go to one level up in the folder structure of the local repo to rename the old repo name (just to sync it with the remote name). This step is optional.
-`mv <old_repo_name> <new_repo_name>`     
+## One codebase, two remote repositories
 
-### Rstudio can commit but not push to remote
-- `git status` to check if there are any mismatches between local and remote repo. RStudio’s Git pane might be out of sync if internal status cache is not refreshed properly.  
-- `git remote -v` to check if the `fetch` and `push` URLs are correct. If not fix the URL using `git remote set-url origin <correct_repo_URL>` from the remote's SSH URL under `<> Code`.  
-- `git remote -vv` to confirm branch tracking info. If you see something like the below, you're fine:   
+Scenario: I have one local codebase and want the same commits available
+in two GitHub repositories.
+
+Create the second GitHub repository as an **empty repository**---do not
+initialize it with a README, `.gitignore`, or license.
+
+Check the existing remote:
+
+``` bash
+git remote -v
 ```
-* main 123abc [origin/main] Commit message
+
+Example:
+
+``` text
+origin  git@github.com:<username>/<repo-name>.git (fetch)
+origin  git@github.com:<username>/<repo-name>.git (push)
 ```
-If, however, you something like the below, set the upstream branch to push to:   
+
+Add a second remote. The name `team` is simply a local nickname for that
+remote:
+
+``` bash
+git remote add team git@github.com:<organization>/<repo-name>.git
 ```
-* main 123abc Commit message
+
+Verify:
+
+``` bash
+git remote -v
 ```
 
-`git branch --set-upstream-to=origin/main main`
+Example:
 
-# One project/codebase, two remote repositories
-Already have a repo and would like to create another; then, any updates committed and pushed to both repos.
-- create the new repo on GitHub
-  - **Don't initialize it with `README`, `.gitignore`, License**
-  - Just empty repo
-- Check current remote on bash or Rstudio using `git remote -v`
-  - You'll probably see something like:  
-  
-  ```
-  origin  git@github.com:rskanchi/omicsPoweR.git (fetch)
-  origin  git@github.com:rskanchi/omicsPoweR.git (push)  
-  ```
+``` text
+origin  git@github.com:<username>/<repo-name>.git (fetch)
+origin  git@github.com:<username>/<repo-name>.git (push)
+team    git@github.com:<organization>/<repo-name>.git (fetch)
+team    git@github.com:<organization>/<repo-name>.git (push)
+```
 
-- Add the new repo as a second remote: `git remote add team git@github.com:CoarfaBCM/omicsPoweR.git`
-- Verify the remotes: `git remote -v`
-  - You should see:
-  
-  ```
-  origin  git@github.com:rskanchi/omicsPoweR.git (fetch)
-  origin  git@github.com:rskanchi/omicsPoweR.git (push)
-  team    git@github.com:CoarfaBCM/omicsPoweR.git (fetch)
-  team    git@github.com:CoarfaBCM/omicsPoweR.git (push)  
-  ```
+First push to the second remote:
 
-- Push the repo to new `team` repo for the first time: `git push -u team main`.  
-- Every subsequent commit:
+``` bash
+git push -u team main
+```
 
-  ```
-  git add <filename>
-  git commit -m "commit message"
-  
-  git push origin main
-  git push team main
-  ```
-  
-Commands that might be useful in this situation:
+For later commits:
 
-- `git branch -vv`: Shows local brnaches and which remote branch each is tracking (like [origin/main] or [team/main]). Rstudio Git button (top-right on Rstudio) pushes to whatever your current branch is tracking.  
+``` bash
+git add <filename>
+git commit -m "commit message"
 
-- `git log --oneline -5 --decorate`: The `--decorate` shows which remotes' branches point at which commits to understand where exactly your latest commit currently lives.
+git push origin main
+git push team main
+```
 
+The same local commit can therefore be pushed to both repositories.
 
-# Github issues
-Issues are a great way to track tasks, discussions, and any feature enhancements in a repository.
+------------------------------------------------------------------------
+
+## Troubleshooting and recovery
+
+### Local branch is ahead of `origin/main`
+
+See the local commits that have not been pushed:
+
+``` bash
+git log --oneline origin/main..HEAD
+```
+
+If I intentionally want to combine/rework recent *unpushed* commits, I
+can reset them. For example, to undo the last four commits while keeping
+their changes staged:
+
+``` bash
+git reset --soft HEAD~4
+```
+
+Use this only after confirming those are the commits I intend to
+rewrite.
+
+### Accidentally committed many staged files --- not pushed yet
+
+This can happen because files were already checked/staged in the RStudio
+Git pane before I ran `git add` for the one file I intended to commit.
+
+Undo the most recent commit while keeping the file changes:
+
+``` bash
+git reset HEAD~1
+```
+
+Then inspect:
+
+``` bash
+git status
+```
+
+Stage only the intended files and recommit.
+
+### Stage modified and deleted tracked files, but not untracked files
+
+``` bash
+git add -u
+```
+
+Then:
+
+``` bash
+git commit -m "Update tracked files"
+git push origin main
+```
+
+### RStudio can commit but not push
+
+Check repository state:
+
+``` bash
+git status
+```
+
+Check the remote URL:
+
+``` bash
+git remote -v
+```
+
+Check branch tracking:
+
+``` bash
+git branch -vv
+```
+
+If needed:
+
+``` bash
+git branch --set-upstream-to=origin/main main
+```
+
+RStudio's Git pane can occasionally need refreshing even when Git itself
+is fine.
+
+------------------------------------------------------------------------
+
+## Destructive or history-rewriting operations --- use carefully
+
+These commands are useful, but they can discard work or alter shared
+history. Run `git status` first and inspect exactly what will be
+affected.
+
+### Make local tracked files exactly match the remote
+
+Use this only when I explicitly **do not want to preserve local tracked
+changes**:
+
+``` bash
+git fetch origin
+git reset --hard origin/main
+```
+
+`git reset --hard` discards local changes to tracked files.
+
+If I also want to remove untracked files/directories, preview first:
+
+``` bash
+git clean -fdn
+```
+
+Only after checking the preview:
+
+``` bash
+git clean -fd
+```
+
+`git clean -fd` permanently removes untracked files and directories.
+
+### Remove a file from the current remote repository after it was committed
+
+If the file is not sensitive and I simply no longer want it in the
+current version of the repository, there is usually **no need to rewrite
+history**:
+
+``` bash
+git rm path/to/file
+git commit -m "Remove file"
+git push origin main
+```
+
+The file still exists in earlier Git history.
+
+### Remove a file from an earlier commit by rewriting history
+
+History rewriting is a different situation---for example, when I
+specifically need to alter existing commits rather than simply remove a
+file going forward.
+
+A previous workflow I used was:
+
+``` bash
+git log --oneline
+git reset <parent_commit_hash>
+```
+
+Then stage only the files that should remain:
+
+``` bash
+git add <file1> <file2>
+git commit -m "Add intended files"
+```
+
+If the rewritten history had already been pushed:
+
+``` bash
+git push --force-with-lease origin main
+```
+
+**Warning:** `--force-with-lease` rewrites remote branch history. Avoid
+doing this casually on a shared branch. Coordinate with collaborators
+first.
+
+If a committed file contained credentials, secrets, protected data, or
+other information that must actually be removed from repository history,
+simply deleting it in a new commit is not sufficient. That requires
+deliberate history cleanup and, for exposed credentials, credential
+rotation.
+
+------------------------------------------------------------------------
+
+## Move a subfolder into its own repository while retaining history
+
+Example structure:
+
+``` text
+github/
+└── Rshiny/
+    └── Vennify/
+```
+
+Goal: make `Vennify` its own repository while retaining the relevant
+commit history.
+
+Work on a separate clone rather than the only working copy:
+
+``` bash
+git clone https://github.com/<username>/Rshiny.git
+```
+
+Install `git-filter-repo` if needed:
+
+``` bash
+brew install git-filter-repo
+```
+
+or:
+
+``` bash
+python3 -m pip install --user git-filter-repo
+```
+
+Inside the cloned repository:
+
+``` bash
+git filter-repo --subdirectory-filter Vennify
+```
+
+If the tool requires it for this disposable clone, use `--force` only
+after confirming I am working in the intended copy.
+
+Rename the local directory if desired, then configure the new remote:
+
+``` bash
+git remote remove origin
+git remote add origin https://github.com/<username>/Vennify.git
+git push -u origin main
+```
+
+------------------------------------------------------------------------
+
+## GitHub Issues
+
+GitHub Issues are useful for tracking tasks, bugs, discussions, feature
+ideas, and future enhancements associated with a repository.
+
+------------------------------------------------------------------------
+
+## Reference
 
 [Happy Git and GitHub for the useR](https://happygitwithr.com/)
